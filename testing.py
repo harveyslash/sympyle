@@ -44,7 +44,6 @@ for i in range(1000):
     loss = mse.forward()
     losses.append(loss)
     print(loss)
-<<<<<<< HEAD
     grads = add.backward(S_t)
     #print(grads)
     #print(grads.shape)
@@ -64,7 +63,4 @@ print("_"*10)
 #print(S_t.value.shape)
 plt.plot(losses)
 plt.show()
-=======
-    grads = mse.backward(T_t)
-    T_t.value -= .1 * grads
->>>>>>> c00e81c06ef2c0576b0a1adb1ed8ff3f7dda1976
+
