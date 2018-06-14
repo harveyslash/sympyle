@@ -23,6 +23,8 @@ class Matmul(Node):
             return np.matmul(parent_back,
                              child_forward.T)
 
-        # else:  # with respect to b
-        #     return np.matmul(self.children[0].forward().T,
-        #                      self.parent.backward(self))
+        elif respect_to_node == self.children[1]:  # with respect to b
+            return np.matmul(self.children[0].forward().T,
+                             self.parent.backward(self))
+
+        raise AssertionError("node not a direct child, cant calculate with respect to")
