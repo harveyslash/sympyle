@@ -12,8 +12,6 @@ class MSE(Node):
         t = self.children[1].forward()
 
         avg = np.average((y - t) ** 2)
-        # print(avg)
-        # print(avg.shape)
         return avg
 
     def backward(self, respect_to_node):
@@ -22,11 +20,16 @@ class MSE(Node):
             t = self.children[1].forward()
             output = (2 / t.shape[0]) * (y - t)
             return np.array(np.average(output, axis=0), ndmin=2)
-        elif respect_to_node== self.children[1]:
+        elif respect_to_node == self.children[1]:
             y = self.children[0].forward()
             t = self.children[1].forward()
             output = (2 / t.shape[0]) * (t - y)
             return np.array(np.average(output, axis=0), ndmin=2)
 
+<<<<<<< HEAD
         raise AssertionError("node not a direct child, cant calculate with respect to")
 
+=======
+        raise AssertionError(
+                "node not a direct child, cant calculate with respect to")
+>>>>>>> c00e81c06ef2c0576b0a1adb1ed8ff3f7dda1976
