@@ -26,10 +26,5 @@ class MSE(Node):
             output = (2 / t.shape[0]) * (t - y)
             return np.array(np.average(output, axis=0), ndmin=2)
 
-<<<<<<< HEAD
-        raise AssertionError("node not a direct child, cant calculate with respect to")
-
-=======
         raise AssertionError(
-                "node not a direct child, cant calculate with respect to")
->>>>>>> c00e81c06ef2c0576b0a1adb1ed8ff3f7dda1976
+            "node not a direct child, cant calculate with respect to")
