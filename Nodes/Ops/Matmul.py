@@ -19,9 +19,10 @@ class Matmul(Node):
     def backward(self, respect_to_node):
         if respect_to_node == self.children[0]:  # with respect to a
             parent_back = self.parent.backward(self)
+            child_forward = self.children[1].forward()
             return np.matmul(parent_back,
-                             self.children[1].forward().T)
+                             child_forward.T)
 
-        else:  # with respect to b
-            return np.matmul(self.children[0].forward().T,
-                             self.parent.backward(self))
+        # else:  # with respect to b
+        #     return np.matmul(self.children[0].forward().T,
+        #                      self.parent.backward(self))

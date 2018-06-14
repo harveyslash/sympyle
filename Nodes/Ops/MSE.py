@@ -12,6 +12,8 @@ class MSE(Node):
         t = self.children[1].forward()
 
         avg = np.average((y - t) ** 2)
+        # print(avg)
+        # print(avg.shape)
         return avg
 
     def backward(self, respect_to_node):
@@ -19,9 +21,9 @@ class MSE(Node):
             y = self.children[0].forward()
             t = self.children[1].forward()
             output = (2 / t.shape[0]) * (y - t)
-            return output
-        else:
-            y = self.children[0].forward()
-            t = self.children[1].forward()
-            output = (2 / t.shape[0]) * (t - y)
-            return output
+            return np.array(np.average(output, axis=0), ndmin=2)
+            # else:
+        #     y = self.children[0].forward()
+        #     t = self.children[1].forward()
+        #     output = (2 / t.shape[0]) * (t - y)
+        #     return np.average(output)
