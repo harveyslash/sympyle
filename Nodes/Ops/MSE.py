@@ -30,4 +30,3 @@ class MSE(Node):
 
         raise AssertionError("node not a direct child, cant calculate with respect to")
 
-
