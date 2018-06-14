@@ -8,7 +8,7 @@ class Relu(Node):
         super().__init__([a])
 
     def forward(self):
-        maxes = np.maximum(self.children[0], 0)
+        maxes = np.maximum(self.children[0].forward(), 0)
         return maxes
 
     def backward(self, respect_to_node):
