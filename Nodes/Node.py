@@ -7,6 +7,7 @@ Maintaining a graph like structure makes backprop easy to track.
 
 __author__ = "Harshvardhan Gupta"
 from abc import ABC, abstractmethod
+import pygraphviz as pgv
 
 
 class Node(ABC):
@@ -20,10 +21,12 @@ class Node(ABC):
 
         :param children: a list of Node subclasses
         """
+
         self.children = children
         self.parent = Node
         for child in children:
             child.register_parent_node(self)
+
 
     @abstractmethod
     def forward(self):
@@ -42,3 +45,16 @@ class Node(ABC):
         :return: the derivative matrix
         """
         pass
+
+    def construct_graph(self, root, graph, i = 1):
+        if root == None:
+            return i
+        i_root = i
+        i_child = i+1
+        for child in root.children:            
+            graph.add_node(i_root, label = root.__class__.__name__)            
+            graph.add_node(i_child, label = child.__class__.__name__)
+            graph.add_edge(i_root, i_child)
+            i_child = self.construct_graph(child, graph, i_child)
+            
+        return i_child

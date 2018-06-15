@@ -1,9 +1,11 @@
 from Nodes import Tensor, Matmul, MSE, Add
 import numpy as np
-import matplotlib.pyplot as plt
+import pygraphviz as pgv
+
+vgraph = pgv.AGraph(directed=True)
 
 np.random.seed(100)
-<<<<<<< HEAD
+
 W = np.random.randn(1, 10)
 I = np.random.randn(10, 1)
 T = np.random.randn(1, 1)
@@ -18,8 +20,7 @@ W_t = Tensor(W)
 I_t = Tensor(I)
 S_t = Tensor(S)
 T_t = Tensor(T)
-=======
->>>>>>> c00e81c06ef2c0576b0a1adb1ed8ff3f7dda1976
+
 
 W = np.random.randn(1, 5000)  # nn layer with 1 neuron
 I = np.random.randn(5, 5000)  # an input with minibatch size 5 and 500 features
@@ -32,8 +33,13 @@ I_t = Tensor(I.T)
 T_t = Tensor(T.T)
 
 matmul = Matmul(W_t, I_t)
+matmul.graph_add(vgraph)
+
 add = Add(matmul,S_t)
+add.graph_add(vgraph)
+
 mse = MSE(add, T_t)
+mse.graph_add(vgraph)
 
 print("Loss Before training")
 loss = mse.forward()

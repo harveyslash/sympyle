@@ -36,3 +36,8 @@ for i in range(100000):
 # Plotting
 plt.plot(losses)
 plt.show()
+
+# Draw graph
+#vgraph.write('graph.dot')
+vgraph.layout()
+vgraph.draw('graph.pdf')
