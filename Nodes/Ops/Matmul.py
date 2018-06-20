@@ -1,5 +1,6 @@
-from ..Node import Node
 import numpy as np
+
+from ..Node import Node
 
 __author__ = "Harshvardhan Gupta"
 
@@ -13,6 +14,7 @@ class Matmul(Node):
         super().__init__([a, b])
 
     def forward(self):
+
         return np.matmul(self.children[0].forward(),
                          self.children[1].forward())
 
@@ -20,16 +22,16 @@ class Matmul(Node):
         if respect_to_node == self.children[0]:  # with respect to a
             parent_back = self.parent.backward(self)
             child_forward = self.children[1].forward()
-            return np.matmul(parent_back,
-                             child_forward.T)
+            return np.dot(parent_back,
+                          child_forward.T)
 
         elif respect_to_node == self.children[1]:  # with respect to b
             parent_back = self.parent.backward(self)
             child_forward = self.children[0].forward()
             child_forward = child_forward.T
 
-            return np.matmul(child_forward,
-                             parent_back)
+            return np.dot(child_forward,
+                          parent_back)
 
         raise AssertionError(
                 "node not a direct child, cant calculate with respect to")

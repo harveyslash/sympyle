@@ -13,6 +13,7 @@ class Relu(Node):
 
     def backward(self, respect_to_node):
         parent_grad = self.parent.backward(self)
+        parent_grad_saved = parent_grad.copy()
         parent_grad[parent_grad <= 0] = 0
         parent_grad[parent_grad > 0] = 1
-        return parent_grad
+        return parent_grad * parent_grad_saved

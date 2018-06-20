@@ -1,5 +1,6 @@
-from ..Node import Node
 import numpy as np
+
+from ..Node import Node
 
 
 class MSE(Node):
@@ -12,20 +13,21 @@ class MSE(Node):
         t = self.children[1].forward()
 
         avg = np.average((y - t) ** 2)
-        print("avg.shape {}".format(avg.shape))
         return avg
 
     def backward(self, respect_to_node):
+        batch_size = self.children[0].forward().shape[0]
+
         if respect_to_node == self.children[0]:
             y = self.children[0].forward()
             t = self.children[1].forward()
-            output = (2 / t.shape[0]) * (y - t)
-            return np.array(np.average(output, axis=1), ndmin=2)
+            output = (2 / batch_size) * (y - t)
+            return output
         elif respect_to_node == self.children[1]:
             y = self.children[0].forward()
             t = self.children[1].forward()
-            output = (2 / t.shape[0]) * (t - y)
-            return np.array(np.average(output, axis=1), ndmin=2)
+            output = (2 / batch_size) * (t - y)
+            return output
 
         raise AssertionError(
                 "node not a direct child, cant calculate with respect to")
