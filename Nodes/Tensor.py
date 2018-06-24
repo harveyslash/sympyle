@@ -8,8 +8,13 @@ from .Node import Node
 
 class Tensor(Node):
 
+    @property
+    def attributes(self):
+        return {"color": 'orange'}
+
     def __init__(self, value):
         self.value = value
+
         super().__init__([])
 
     def forward(self):

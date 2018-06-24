@@ -8,6 +8,11 @@ class MSE(Node):
     def __init__(self, y, t):
         super().__init__([y, t])
 
+    @property
+    def attributes(self):
+        return {"color": 'blue', 'fill': "green"}
+        pass
+
     def forward(self):
         y = self.children[0].forward()
         t = self.children[1].forward()

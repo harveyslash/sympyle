@@ -8,6 +8,7 @@ Maintaining a graph like structure makes backprop easy to track.
 __author__ = "Harshvardhan Gupta"
 from abc import ABC, abstractmethod
 from functools import wraps
+import pygraphviz as pgv
 
 import types
 
@@ -15,6 +16,10 @@ __all__ = ['Node']
 
 
 class Node(ABC):
+
+    @property
+    def attributes(self):
+        return {}
 
     def register_parent_node(self, parent):
         self.parent = parent
@@ -65,25 +70,40 @@ class Node(ABC):
         """
         pass
 
-    # def construct_graph(self, root, graph, i=1):
-    #     if root == None:
-    #         return i
-    #     i_root = i
-    #     i_child = i + 1
-    #     for child in root.children:
-    #         graph.add_node(i_root, label=root.__class__.__name__)
-    #         graph.add_node(i_child, label=child.__class__.__name__)
-    #         graph.add_edge(i_root, i_child)
-    #         i_child = self.construct_graph(child, graph, i_child)
-    #
-    #     return i_child
+    def __matmul__(self, other):
+        from .Ops import Matmul
 
-    def clear_caches(self):
-        self.backward_val = None
-        self.forward_val = None
+        return Matmul(self, other)
 
+    def construct_graph(self, file_name, graph=None, i=1):
+
+        if graph is None:
+            graph = pgv.AGraph(directed=True)
+            graph.layout('dot')
+
+        i_root = i
+        i_child = i + 1
         for child in self.children:
-            child.clear_caches()
+            graph.add_node(i_root, label=self.__class__.__name__,
+                           **self.attributes)
+            graph.add_node(i_child, label=child.__class__.__name__,
+                           **child.attributes)
+            graph.add_edge(i_child, i_root, color='green')
+            graph.add_edge(i_root, i_child, color='red')
+            i_child = child.construct_graph(file_name, graph, i_child)
+
+        if i == 1:
+            graph.draw(file_name, prog='dot')
+
+        return i_child
+
+
+def clear_caches(self):
+    self.backward_val = None
+    self.forward_val = None
+
+    for child in self.children:
+        child.clear_caches()
 
 
 def forward_decorator(func):

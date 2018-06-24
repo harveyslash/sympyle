@@ -1,36 +1,48 @@
+from Nodes import Tensor, Matmul, MSE, Relu, Add
 import numpy as np
 
-X = np.array([[0, 0, 1], [0, 1, 1], [1, 0, 1], [1, 1, 1]])
-y = np.array([[0, 1, 1, 0]]).T
-X = np.random.rand(100, 3)
-y = np.random.rand(100, 1)
-print(y.shape)
+np.set_printoptions(suppress=True)
+np.random.seed(100)
 
-syn0 = 2 * np.random.random((3, 4)) - 1
-syn1 = 2 * np.random.random((4, 1)) - 1
-for j in range(60000):
-    l1 = 1 / (1 + np.exp(-(np.dot(X, syn0))))
-    print(l1.shape)
-    print("INPUT SHAPE")
-    print(X.shape)
+X = np.linspace(-np.pi, np.pi, 800).reshape(-1, 1).astype(np.float32)
+X_copy = X.copy()
+pure = np.cos(X)
 
-    print("WEIGHT SHAPE")
-    print(syn0.shape)
+Y = pure + np.random.randn(*X.shape) * .07
+Y = Y.astype(np.float32)
 
-    print("calling after dot shape")
-    print(np.matmul(X, syn0).shape)
-    print("-"*80)
-    l2 = 1 / (1 + np.exp(-(np.dot(l1, syn1))))
-    print(l2.shape)
-    l2_delta = (y - l2) * (l2 * (1 - l2))
-    print(l2_delta.shape)
-    # exit()
-    l1_delta = l2_delta.dot(syn1.T) * (l1 * (1 - l1))
-    print(l1_delta.shape)
-    print(l1.T.dot(l2_delta).shape)
-    print(l2_delta.shape)
-    exit()
-    # syn1 += l1.T.dot(l2_delta)
-    # syn0 += X.T.dot(l1_delta)
-    # print(y - l2)
-    exit()
+I = X.reshape(-1, 1)  # an input with minibatch size 100 and 1 feature
+
+L1 = np.random.randn(1, 1).astype(np.float32)
+L1_b = np.random.randn(1, 100).astype(np.float32)
+
+T = Y.reshape(-1, 1)
+
+I_t = Tensor(I)
+T_t = Tensor(T)
+
+L1_t = Tensor(L1)
+L1_bt = Tensor(L1_b)
+
+matmul1 = I_t @ L1_t
+
+mse = MSE(matmul1, T_t)
+
+import networkx as nx
+import matplotlib.pyplot as plt
+import pygraphviz as pgv
+
+# G = pgv.AGraph(directed=True)
+# G.layout('dot')
+
+mse.construct_graph("gaha.png")
+
+# G.draw('file.png', format='png', prog='dot')
+# G.write('graph.dot')
+# G.draw(path='graphy.png', format='png')
+
+# # same layout using matplotlib with no labels
+# plt.title('draw_networkx')
+# pos = nx.nx_agraph.graphviz_layout(G, prog='dot')
+# nx.draw(G, pos, with_labels=False, arrows=False)
+# plt.savefig('nx_test.png')
