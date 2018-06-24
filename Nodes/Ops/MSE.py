@@ -15,19 +15,22 @@ class MSE(Node):
         avg = np.average((y - t) ** 2)
         return avg
 
-    def backward(self, respect_to_node):
+    def _gradients_for_y(self):
         batch_size = self.children[0].forward().shape[0]
+        y = self.children[0].forward()
+        t = self.children[1].forward()
+        output = (2 / batch_size) * (y - t)
+        return output
 
+    def _gradients_for_t(self):
+        batch_size = self.children[0].forward().shape[0]
+        y = self.children[0].forward()
+        t = self.children[1].forward()
+        output = (2 / batch_size) * (t - y)
+        return output
+
+    def backward(self, respect_to_node):
         if respect_to_node == self.children[0]:
-            y = self.children[0].forward()
-            t = self.children[1].forward()
-            output = (2 / batch_size) * (y - t)
-            return output
+            return self._gradients_for_y()
         elif respect_to_node == self.children[1]:
-            y = self.children[0].forward()
-            t = self.children[1].forward()
-            output = (2 / batch_size) * (t - y)
-            return output
-
-        raise AssertionError(
-                "node not a direct child, cant calculate with respect to")
+            return self._gradients_for_t()

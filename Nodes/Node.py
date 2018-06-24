@@ -41,10 +41,10 @@ class Node(ABC):
         for child in children:
             child.register_parent_node(self)
 
-        caching_func = cache_forward(self.forward)
+        caching_func = forward_decorator(self.forward)
         self.forward = types.MethodType(caching_func, self)
 
-        caching_func = cache_backward(self.backward)
+        caching_func = backward_decorator(self.backward)
         self.backward = types.MethodType(caching_func, self)
 
     @abstractmethod
@@ -86,7 +86,7 @@ class Node(ABC):
             child.clear_caches()
 
 
-def cache_forward(func):
+def forward_decorator(func):
     @wraps(func)
     def wrapper(s):
         if s.forward_val is not None:
@@ -99,14 +99,28 @@ def cache_forward(func):
     return wrapper
 
 
-def cache_backward(func):
+def calculate_with_respect_to(respect_to_node, func):
+    if respect_to_node.backward_val is not None:
+        return respect_to_node.backward_val
+
+    respect_to_node.backward_val = func(respect_to_node)
+
+    if respect_to_node.backward_val is None:
+        raise AssertionError(
+                "node not a direct child, cant calculate with respect to")
+
+    return respect_to_node.backward_val
+
+
+def backward_decorator(func):
     @wraps(func)
-    def wrapper(s, respect_to_node):
-        if s.backward_val is not None:
-            return s.backward_val
+    def wrapper(s: Node, respect_to_node=None):
 
-        s.backward_val = func(respect_to_node)
-
-        return s.backward_val
+        if respect_to_node is None:
+            for child in s.children:
+                child.backward()
+                calculate_with_respect_to(child, func)
+        else:
+            return calculate_with_respect_to(respect_to_node, func)
 
     return wrapper

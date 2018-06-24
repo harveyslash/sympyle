@@ -22,6 +22,3 @@ class Add(Node):
             back = self.parent.backward(self)
 
             return back
-
-        raise AssertionError(
-                "node not a direct child, cant calculate with respect to")
