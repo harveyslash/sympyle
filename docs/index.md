@@ -1,1 +1,6 @@
-## testing
+---
+title: Hello
+layout: default
+---
+ 
+Hello!
