@@ -16,12 +16,12 @@ class Add(Node):
         add = np.add(left, right)
         return add
 
-    def backward(self, respect_to_node):
+    def backward(self, respect_to_node, parent_grads=None):
 
-        back = self.parent.backward(self)
+        back = parent_grads
         if respect_to_node == self.children[0]:
             child = self.children[0].forward()
-        if respect_to_node == self.children[1]:
+        elif respect_to_node == self.children[1]:
             child = self.children[1].forward()
 
         for i, (dim1, dim2) in enumerate(

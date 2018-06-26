@@ -20,5 +20,5 @@ class Tensor(Node):
     def forward(self):
         return self.value
 
-    def backward(self, respect_to_node):
+    def backward(self, respect_to_node, parent_grads=None):
         raise AssertionError("Calling backward on tensor")

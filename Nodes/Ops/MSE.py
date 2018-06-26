@@ -34,7 +34,7 @@ class MSE(Node):
         output = (2 / batch_size) * (t - y)
         return output
 
-    def backward(self, respect_to_node):
+    def backward(self, respect_to_node, parent_grads=None):
         if respect_to_node == self.children[0]:
             return self._gradients_for_y()
         elif respect_to_node == self.children[1]:

@@ -4,7 +4,7 @@ import numpy as np
 np.set_printoptions(suppress=True)
 np.random.seed(100)
 
-X = np.linspace(-np.pi, np.pi, 800).reshape(-1, 1).astype(np.float32)
+X = np.linspace(-np.pi, np.pi, 1).reshape(-1, 1).astype(np.float32)
 X_copy = X.copy()
 pure = np.cos(X)
 
@@ -14,7 +14,7 @@ Y = Y.astype(np.float32)
 I = X.reshape(-1, 1)  # an input with minibatch size 100 and 1 feature
 
 L1 = np.random.randn(1, 1).astype(np.float32)
-L1_b = np.random.randn(1, 100).astype(np.float32)
+L1_b = np.random.randn(1, 1).astype(np.float32)
 
 T = Y.reshape(-1, 1)
 
@@ -24,9 +24,10 @@ T_t = Tensor(T)
 L1_t = Tensor(L1)
 L1_bt = Tensor(L1_b)
 
-matmul1 = I_t @ L1_t
+# matmul1 = I_t @ L1_t
+added = L1_bt - L1_t
 
-mse = MSE(matmul1, T_t)
+mse = MSE(added, T_t)
 
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -35,8 +36,14 @@ import pygraphviz as pgv
 # G = pgv.AGraph(directed=True)
 # G.layout('dot')
 
-mse.construct_graph("gaha.png")
+mse.backward()
+print(mse.forward())
+print(L1_bt.backward_val)
+# print(L1_bt.backward_val)
+mse.draw_graph("gaha.png")
 
+# print(mse.children)
+# print(added.children)
 # G.draw('file.png', format='png', prog='dot')
 # G.write('graph.dot')
 # G.draw(path='graphy.png', format='png')
