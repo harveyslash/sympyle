@@ -11,7 +11,6 @@ class MSE(Node):
     @property
     def attributes(self):
         return {"color": 'blue', 'fill': "green"}
-        pass
 
     def forward(self):
         y = self.children[0].forward()
@@ -35,7 +34,9 @@ class MSE(Node):
         return output
 
     def backward(self, respect_to_node, parent_grads=None):
+        if parent_grads is None:
+            parent_grads = 1
         if respect_to_node == self.children[0]:
-            return self._gradients_for_y()
+            return parent_grads * self._gradients_for_y()
         elif respect_to_node == self.children[1]:
-            return self._gradients_for_t()
+            return parent_grads * self._gradients_for_t()

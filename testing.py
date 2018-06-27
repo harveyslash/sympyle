@@ -90,7 +90,7 @@ for i in range(1):
     print(L2_bt.backward_val)
 
     # print(np.sum(gradsl2b, axis=0, keepdims=True))
-    # mse.clear_caches()
+    # mse.clear()
     exit()
     # print(gradsl1b.shape)
     # print(L1_bt.value.shape)

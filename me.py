@@ -23,12 +23,31 @@ T_t = Tensor(T)
 
 L1_t = Tensor(L1)
 L1_bt = Tensor(L1_b)
+# L1_bt1 = Tensor(L1_b)
+# L1_bt2 = Tensor(L1_b)
+# L1_bt3 = Tensor(L1_b)
+# L1_bt4 = Tensor(L1_b)
+# L1_bt5 = Tensor(L1_b)
+# L1_bt6 = Tensor(L1_b)
 
 # matmul1 = I_t @ L1_t
 added = L1_bt - L1_t
+# added2 = L1_bt + L1_t
+# added2 = L1_bt1 + L1_t
+# added3 = L1_bt1 + L1_t
+# final = added  # + added2
 
-mse = MSE(added, T_t)
-
+# mse = MSE(added, T_t)
+# mse2 = MSE(added, T_t)
+# # mse2 = MSE(added, T_t)
+# # mse2 = MSE(added, T_t)
+# # mse2 = MSE(added, T_t)
+# # mse2 = MSE(added, T_t)
+# # final = added + added2 #+ added3
+# # mse2 = MSE(added, T_t)
+# #
+# final = mse + mse2  # + mse2 + mse2 + mse2
+# ALA = MSE(final, T_t)
 import networkx as nx
 import matplotlib.pyplot as plt
 import pygraphviz as pgv
@@ -36,11 +55,26 @@ import pygraphviz as pgv
 # G = pgv.AGraph(directed=True)
 # G.layout('dot')
 
-mse.backward()
-print(mse.forward())
-print(L1_bt.backward_val)
+# mse.backward()
+# mse2.backward()
+# mse.backward()
+# mse.backward()
+# mse.backward()
+# mse.backward()
+# print(mse.forward())
 # print(L1_bt.backward_val)
-mse.draw_graph("gaha.png")
+# print(L1_bt.backward_val)
+# print(final.forward())
+# mse.backward()
+# final.backward()
+# print(L1_t.backward_val)
+# print(L1_bt.backward_val)
+added.backward()
+# print("AAAA")
+print(L1_t.backward_val)
+print(L1_bt.backward_val)
+# print(L1_bt1.backward_val)
+added.draw_graph("gaha.png")
 
 # print(mse.children)
 # print(added.children)

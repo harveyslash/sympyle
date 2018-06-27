@@ -112,6 +112,37 @@ class Node(ABC):
 
         return i_child
 
+    def draw_graph(self, file_name, graph=None, root=True):
+        """
+        Draw the computation graph visualisation and save it with the specified
+        filename. This function recursively goes to all children and adds nodes
+        to the graph object.
+
+        :param file_name: the file name to save the visualisation on
+        :param graph: internal parameter that should not be used externally
+        :param i:     internal parameter that should not be used externally
+        :return:      None
+        """
+
+        if graph is None:
+            graph = pgv.AGraph(directed=True)
+            graph.layout('dot')
+
+        graph.add_node(id(self), label=self.__class__.__name__,
+                       **self.attributes)
+
+        for child in self.children:
+            graph.add_node(id(child), label=child.__class__.__name__,
+                           **child.attributes)
+            graph.add_edge(id(child), id(self), color='green')
+            graph.add_edge(id(self), id(child), color='red', style='dashed')
+            child.draw_graph(file_name, graph, False)
+
+        if root:
+            graph.draw(file_name, prog='dot')
+
+        return None
+
     def clear(self):
         """
         Clear cached forward and backward values for all ops
@@ -150,7 +181,8 @@ def forward_decorator(func):
     return wrapper
 
 
-def calculate_with_respect_to(respect_to_node, func, parent_grads):
+def calculate_with_respect_to(respect_to_node, func, parent_grads,
+                              should_save=True):
     """
     Calculate the value of a gradients of a certain node
     with respect to another node.
@@ -167,10 +199,13 @@ def calculate_with_respect_to(respect_to_node, func, parent_grads):
 
     :param func: The function that will return the gradients for the
             respect_to_node.
+    :param parent_grads: The gradients from the parent node.
+    :param should_save:  If the child node's .backward_val should be updated
+                        or not. This should be set to False when using ops
+                        as part of other ops
+
     :return:
     """
-    if respect_to_node.backward_val is not None:
-        return respect_to_node.backward_val
 
     backward_val = func(respect_to_node, parent_grads)
 
@@ -178,7 +213,12 @@ def calculate_with_respect_to(respect_to_node, func, parent_grads):
         raise AssertionError(
                 "node not a direct child, cant calculate with respect to")
 
-    respect_to_node.backward_val = backward_val
+    if not should_save:
+        return backward_val
+    if respect_to_node.backward_val is not None:
+        respect_to_node.backward_val += backward_val
+    else:
+        respect_to_node.backward_val = backward_val.copy()
 
     return backward_val
 
@@ -201,7 +241,8 @@ def backward_decorator(func):
     """
 
     @wraps(func)
-    def wrapper(s: Node, respect_to_node=None, parent_grads=None):
+    def wrapper(s: Node, respect_to_node=None, parent_grads=None,
+                should_save=True):
 
         if respect_to_node is None:
             for child in s.children:
@@ -209,6 +250,6 @@ def backward_decorator(func):
                 child.backward(parent_grads=grads)
         else:
             return calculate_with_respect_to(respect_to_node, func,
-                                             parent_grads)
+                                             parent_grads, should_save)
 
     return wrapper
