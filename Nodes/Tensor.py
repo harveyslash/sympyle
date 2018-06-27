@@ -10,7 +10,7 @@ class Tensor(Node):
 
     @property
     def attributes(self):
-        return {"color": 'orange'}
+        return {"color": 'orange', 'shape': 'rect'}
 
     def __init__(self, value):
         self.value = value

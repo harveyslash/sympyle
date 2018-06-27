@@ -80,38 +80,6 @@ class Node(ABC):
 
         return Sub(self, other)
 
-    def draw_graph(self, file_name, graph=None, i=1):
-        """
-        Draw the computation graph visualisation and save it with the specified
-        filename. This function recursively goes to all children and adds nodes
-        to the graph object.
-
-        :param file_name: the file name to save the visualisation on
-        :param graph: internal parameter that should not be used externally
-        :param i:     internal parameter that should not be used externally
-        :return:      None
-        """
-
-        if graph is None:
-            graph = pgv.AGraph(directed=True)
-            graph.layout('dot')
-
-        i_root = i
-        i_child = i + 1
-        for child in self.children:
-            graph.add_node(i_root, label=self.__class__.__name__,
-                           **self.attributes)
-            graph.add_node(i_child, label=child.__class__.__name__,
-                           **child.attributes)
-            graph.add_edge(i_child, i_root, color='green')
-            graph.add_edge(i_root, i_child, color='red', style='dashed')
-            i_child = child.draw_graph(file_name, graph, i_child)
-
-        if i == 1:
-            graph.draw(file_name, prog='dot')
-
-        return i_child
-
     def draw_graph(self, file_name, graph=None, root=True):
         """
         Draw the computation graph visualisation and save it with the specified
@@ -120,25 +88,30 @@ class Node(ABC):
 
         :param file_name: the file name to save the visualisation on
         :param graph: internal parameter that should not be used externally
-        :param i:     internal parameter that should not be used externally
+        :param root:     internal parameter that should not be used externally
         :return:      None
         """
 
         if graph is None:
-            graph = pgv.AGraph(directed=True)
+            graph = pgv.AGraph(directed=True, rankdir="BT", ranksep='.5')
             graph.layout('dot')
 
-        graph.add_node(id(self), label=self.__class__.__name__,
-                       **self.attributes)
+            graph.add_node(id(self), label=self.__class__.__name__,
+                           **self.attributes, color='red')
 
         for child in self.children:
             graph.add_node(id(child), label=child.__class__.__name__,
                            **child.attributes)
             graph.add_edge(id(child), id(self), color='green')
-            graph.add_edge(id(self), id(child), color='red', style='dashed')
+            graph.add_edge(id(self), id(child), color='red', style='dashed',
+                           constraint=False, penwidth=.2, arrowsize=0.5)
             child.draw_graph(file_name, graph, False)
 
+            # graph.add_subgraph([id(child) for child in self.children],
+            #                    rank='same')
         if root:
+            graph.graph_attr.update(dpi=100)
+            # graph.graph_attr.update(margin=5.0)
             graph.draw(file_name, prog='dot')
 
         return None
@@ -215,6 +188,8 @@ def calculate_with_respect_to(respect_to_node, func, parent_grads,
 
     if not should_save:
         return backward_val
+
+    print("NOT SHOULD SAVE")
     if respect_to_node.backward_val is not None:
         respect_to_node.backward_val += backward_val
     else:
@@ -246,8 +221,9 @@ def backward_decorator(func):
 
         if respect_to_node is None:
             for child in s.children:
-                grads = calculate_with_respect_to(child, func, parent_grads)
-                child.backward(parent_grads=grads)
+                grads = calculate_with_respect_to(child, func, parent_grads,
+                                                  should_save=should_save)
+                child.backward(parent_grads=grads, should_save=should_save)
         else:
             return calculate_with_respect_to(respect_to_node, func,
                                              parent_grads, should_save)
