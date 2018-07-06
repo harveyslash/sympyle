@@ -3,4 +3,4 @@ from .MSE import MSE
 from .Add import Add
 from .Sub import Sub
 from .Relu import Relu
-
+from .SoftmaxWithCrossEntropy import SoftmaxWithCrossEntropy

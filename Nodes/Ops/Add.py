@@ -1,4 +1,5 @@
 from ..Node import Node
+from Nodes.Node import consts
 import numpy as np
 
 
@@ -27,6 +28,7 @@ class Add(Node):
             child = self.children[0].forward()
         elif respect_to_node == self.children[1]:
             child = self.children[1].forward()
+            return consts.no_grads
 
         dim1 = dim2 = 0
         for i, (dim1, dim2) in enumerate(

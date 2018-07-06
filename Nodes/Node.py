@@ -9,10 +9,14 @@ __author__ = "Harshvardhan Gupta"
 from abc import ABC, abstractmethod
 from functools import wraps
 import pygraphviz as pgv
+from collections import namedtuple
 
 import types
 
-__all__ = ['Node']
+consts = ["no_grads"]
+consts = namedtuple("constants", consts)
+
+__all__ = ['Node', 'consts']
 
 
 class Node(ABC):
@@ -93,7 +97,7 @@ class Node(ABC):
         """
 
         if graph is None:
-            graph = pgv.AGraph(directed=True, rankdir="BT", ranksep='.5')
+            graph = pgv.AGraph(directed=True, rankdir="BT")
             graph.layout('dot')
 
             graph.add_node(id(self), label=self.__class__.__name__,
@@ -110,8 +114,11 @@ class Node(ABC):
             # graph.add_subgraph([id(child) for child in self.children],
             #                    rank='same')
         if root:
-            graph.graph_attr.update(dpi=100)
+            # graph.graph_attr.update(dpi=100)
+            # graph.graph_attr.update(overlap="scalexy")
+            # graph.graph_attr.update(sep="+1")
             # graph.graph_attr.update(margin=5.0)
+            graph.graph_attr.update(K=1)
             graph.draw(file_name, prog='dot')
 
         return None
@@ -186,10 +193,12 @@ def calculate_with_respect_to(respect_to_node, func, parent_grads,
         raise AssertionError(
                 "node not a direct child, cant calculate with respect to")
 
+    if backward_val is consts.no_grads:
+        return consts.no_grads
+
     if not should_save:
         return backward_val
 
-    print("NOT SHOULD SAVE")
     if respect_to_node.backward_val is not None:
         respect_to_node.backward_val += backward_val
     else:
@@ -223,6 +232,8 @@ def backward_decorator(func):
             for child in s.children:
                 grads = calculate_with_respect_to(child, func, parent_grads,
                                                   should_save=should_save)
+                if grads is consts.no_grads:
+                    continue
                 child.backward(parent_grads=grads, should_save=should_save)
         else:
             return calculate_with_respect_to(respect_to_node, func,
