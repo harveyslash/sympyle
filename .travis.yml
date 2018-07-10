@@ -4,6 +4,8 @@ python:
 # command to install dependencies
 install:
   - pip install -r requirements.txt
+  - pip install codecov
 # command to run tests
 script:
-  - nose2 --with-coverage
+  - nose2
+  - codecov
