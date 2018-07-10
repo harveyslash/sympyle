@@ -50,6 +50,21 @@ class Add_Op(unittest.TestCase):
 
         assert np.all(add_op.forward_val == (np_1 + np_2))
 
+    def test_scalar_backward(self):
+        np_1 = np.random.randn(1)
+        t1 = np.array(np_1)
+        t1 = Tensor(t1)
+
+        np_2 = np.random.randn(1)
+        t2 = np.array(np_2)
+        t2 = Tensor(t2)
+
+        add_op = t1 + t2
+
+        add_op.forward()
+        assert np.all(add_op.backward(t2) == np.array([1.0]))
+        assert np.all(add_op.backward(t1) == np.array([1.0]))
+
 
 if __name__ == "__main__":
     unittest.main()
