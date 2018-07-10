@@ -62,7 +62,7 @@ class Add_Op(unittest.TestCase):
         add_op.forward()
 
         eps = 0.000001 # epsilon
-        error_tolerance = 0.0000000001
+        error_tolerance = 0.000001
 
         ## wrt `a`
         # x+eps
@@ -116,7 +116,7 @@ class Add_Op(unittest.TestCase):
         # `deriv_b` is the expected derivation with respect to `b`
         
         eps = 0.000001 # epsilon
-        error_tolerance = 0.0000000001
+        error_tolerance = 0.000001
         deriv_a = np.array((np.add(a + eps, b) - np.add(a - eps, b)) / (2 * eps)) 
         deriv_b = np.array((np.add(b + eps, a) - np.add(b - eps, a)) / (2 * eps))
         
