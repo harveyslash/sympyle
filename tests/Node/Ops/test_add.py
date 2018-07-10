@@ -72,13 +72,13 @@ class Add_Op(unittest.TestCase):
         t1_grad = a.backward_val
         t2_grad = b.backward_val
 
-        t1_numeric_grad = calculate_numerical_gradient(add_op, a,
-                                                       slice(0, None))
-        t2_numeric_grad = calculate_numerical_gradient(add_op, b,
-                                                       slice(0, None))
+        a_numeric_grad = calculate_numerical_gradient(add_op, a,
+                                                      slice(0, None))
+        b_numeric_grad = calculate_numerical_gradient(add_op, b,
+                                                      slice(0, None))
 
-        assert np.abs(t1_grad - t1_numeric_grad) < 0.00001
-        assert np.abs(t2_grad - t2_numeric_grad) < 0.00001
+        assert np.abs(t1_grad - a_numeric_grad) < 0.00001
+        assert np.abs(t2_grad - b_numeric_grad) < 0.00001
 
 
 if __name__ == "__main__":
