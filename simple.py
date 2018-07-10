@@ -47,7 +47,7 @@ relu1 = Relu(add1)
 matmul2 = Matmul(relu1, L2_t)
 add2 = Add(matmul2, L2_bt)
 # relu2 = Relu(add2)
-mse = MSE(add2, T_t)
+mse = MSE(T_t, T_t)
 #
 # print("Loss Before training")
 # loss = L2_t.forward()
@@ -91,7 +91,7 @@ for i in range(1):
 
     # print(np.sum(gradsl2b, axis=0, keepdims=True))
     # mse.clear()
-    exit()
+    # exit()
     # print(gradsl1b.shape)
     # print(L1_bt.value.shape)
     # print(np.average(gradsl1b, axis=0).shape)
@@ -115,4 +115,4 @@ print("-" * 100)
 # I_t.value = x.T
 print("RESULT")
 print(mse.forward().shape)
-print(relu2.forward())
+# print(relu2.forward())

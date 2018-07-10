@@ -5,18 +5,18 @@ import numpy as np
 
 class SoftmaxWithCrossEntropy(Node):
     """
-    Add op.
     """
 
     def __init__(self, output, targets, axis=1):
         super().__init__([output, targets])
         self.axis = axis
+        self.softmax = None
 
     def forward(self):
         inputs = self.children[0].forward()
         targets = self.children[1].forward()
 
-        exp = np.exp(inputs)
+        exp = np.exp(inputs - inputs.max())
         summed = np.sum(exp, axis=self.axis, keepdims=True)
 
         softmax = exp / summed
@@ -25,11 +25,6 @@ class SoftmaxWithCrossEntropy(Node):
 
         cross_entropies = np.sum(cross_entropies, axis=1)
         self.softmax = softmax
-        # print("starting")
-        # print(targets)
-        # print(softmax)
-        # print("done")
-        # print(cross_entropies.sum())
 
         return np.average(cross_entropies)
 
