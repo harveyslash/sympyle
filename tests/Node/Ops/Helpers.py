@@ -29,9 +29,9 @@ def calculate_numerical_gradient(node, respect_to_node, node_slice=None,
     :return:        the numerically computed gradient value
     """
     sliced = respect_to_node.value[node_slice]
-    if not isinstance(sliced, np.ndarray) or len(sliced) < 1:
-        raise AttributeError("Slice results in a scalar or Empty value"
-                             ".An array must be returned after slicing")
+
+    if len(sliced) > 1:
+        raise AttributeError("Slice should result in a single value")
 
     node.clear()
     respect_to_node.value[node_slice] += eps
