@@ -21,7 +21,7 @@ class SoftmaxWithCrossEntropyOpTest(unittest.TestCase):
         np_inputs = np.random.randn(5)
         np_targets = np.zeros(5)
         np_targets[0] = 1.0
-        array_slice = slice(0, 1)
+        array_slice = (0,)
 
         error_tolerance = 0.00000001
 
@@ -39,7 +39,3 @@ class SoftmaxWithCrossEntropyOpTest(unittest.TestCase):
 
         assert np.all(np.abs(
                 inputs_numerical_deriv - inputs_derivative) < error_tolerance)
-
-
-if __name__ == "__main__":
-    unittest.main()

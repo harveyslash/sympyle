@@ -32,14 +32,12 @@ class MseOpTest(unittest.TestCase):
         targets_derivative = targets.backward_val.copy()
 
         mse.clear()
-        inputs_numerical_deriv = calculate_numerical_gradient(mse, inputs)
-        targets_numerical_deriv = calculate_numerical_gradient(mse, targets)
+        inputs_numerical_deriv = calculate_numerical_gradient(mse, inputs,
+                                                              (0,))
+        targets_numerical_deriv = calculate_numerical_gradient(mse, targets,
+                                                               (0,))
 
         assert (np.abs(
                 inputs_numerical_deriv - inputs_derivative) < error_tolerance)
         assert (np.abs(
                 targets_numerical_deriv - targets_derivative) < error_tolerance)
-
-
-if __name__ == "__main__":
-    unittest.main()

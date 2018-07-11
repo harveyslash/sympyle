@@ -1,6 +1,7 @@
 from ..Node import Node
 from Nodes.Node import consts
 import numpy as np
+from Nodes import Utils
 
 
 class Add(Node):
@@ -21,21 +22,16 @@ class Add(Node):
 
         back = parent_grads
         if back is None:
-            back = np.array([1.0])
-            return back
+            back = np.ones_like(self.forward())
 
         if respect_to_node == self.children[0]:
             child = self.children[0].forward()
         elif respect_to_node == self.children[1]:
             child = self.children[1].forward()
+        else:
+            return None
 
-        dim1 = dim2 = 0
-        for i, (dim1, dim2) in enumerate(
-                zip(child.shape[::-1], back.shape[::-1])):
-            if dim2 != dim1:
-                break
+        broadcast_dims = Utils.get_broadcast_axes(back, child)
 
-        if dim1 == dim2:
-            return back
-
-        return back.sum(axis=tuple(range(i)))
+        grad = back.sum(axis=broadcast_dims).reshape(child.shape)
+        return grad

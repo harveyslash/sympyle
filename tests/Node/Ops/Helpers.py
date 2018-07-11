@@ -6,7 +6,7 @@ __author__ = "Harshvardhan Gupta"
 import numpy as np
 
 
-def calculate_numerical_gradient(node, respect_to_node, node_slice=None,
+def calculate_numerical_gradient(node, respect_to_node, node_slice,
                                  eps=0.000001):
     """
     Calculate gradient numerically using the formula:
@@ -32,7 +32,7 @@ def calculate_numerical_gradient(node, respect_to_node, node_slice=None,
     """
     sliced = respect_to_node.value[node_slice]
 
-    if len(sliced) > 1:
+    if not np.isscalar(sliced):
         raise AttributeError("Slice should result in a single value")
 
     node.clear()
@@ -46,4 +46,5 @@ def calculate_numerical_gradient(node, respect_to_node, node_slice=None,
 
     respect_to_node.value[node_slice] += eps
 
-    return (plus_eps - minus_eps) / (2 * eps)
+    grad = (plus_eps - minus_eps) / (2 * eps)
+    return grad.sum()

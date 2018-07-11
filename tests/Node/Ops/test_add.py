@@ -11,12 +11,6 @@ class Add_Op(unittest.TestCase):
     Class for testing functionality of Addition operation
     """
 
-    def setUp(self):
-        pass
-
-    def tearDown(self):
-        pass
-
     def test_scalar_forward(self):
         """
         Test to see if scalar forward values are computed correctly
@@ -31,12 +25,7 @@ class Add_Op(unittest.TestCase):
 
         add_op.forward()
 
-        e = f'''
-        Test Failed!: test_scalar_forward()
-        add_op.forward_val = {add_op.forward_val}, 
-        (a+b) = {(a+b)}'''
-
-        assert add_op.forward_val == (a + b), e
+        assert add_op.forward_val == (a + b)
 
     def test_vector_forward(self):
         """
@@ -52,12 +41,7 @@ class Add_Op(unittest.TestCase):
 
         add_op.forward()
 
-        e = f'''
-        Test Failed!: test_vector_forward()
-        add_op.forward_val = {add_op.forward_val}, 
-        (a+b) = {(a+b)}'''
-
-        assert np.all(add_op.forward_val == (a + b)), e
+        assert np.all(add_op.forward_val == (a + b))
 
     def test_scalar_backward(self):
         """
@@ -75,13 +59,43 @@ class Add_Op(unittest.TestCase):
         t2_grad = b.backward_val
 
         a_numeric_grad = calculate_numerical_gradient(add_op, a,
-                                                      slice(0, None))
+                                                      (0,))
         b_numeric_grad = calculate_numerical_gradient(add_op, b,
-                                                      slice(0, None))
+                                                      (0,))
 
         assert np.abs(t1_grad - a_numeric_grad) < 0.00001
         assert np.abs(t2_grad - b_numeric_grad) < 0.00001
 
+    def test_broadcast_backward(self):
+        """
+        Test broadcast functionality.
+        Arrays of different shapes are broadcast together.
+        The values of the gradients are compared with the gradients
+        from the slope formula.
+        """
 
-if __name__ == "__main__":
-    unittest.main()
+        np.random.seed(100)
+
+        a = Tensor(np.random.randn(1, 1, 10, 3))
+        b = Tensor(np.random.randn(1, 10, 3, 10, 1))
+
+        a_idx = (0, 0, 1, 1)
+        b_idx = (0, 1, 1, 1, 0)
+
+        add_op = a + b
+
+        forward_val = add_op.forward()
+        assert forward_val.shape == (1, 10, 3, 10, 3)
+        add_op.backward()
+
+        a_grad = a.backward_val
+        b_grad = b.backward_val
+
+        assert a.value.shape == a.backward_val.shape
+        assert b.value.shape == b.backward_val.shape
+
+        a_numeric_grad = calculate_numerical_gradient(add_op, a, a_idx)
+        b_numeric_grad = calculate_numerical_gradient(add_op, b, b_idx)
+
+        assert np.abs(a_grad[a_idx] - a_numeric_grad) < 0.000001
+        assert np.abs(b_grad[b_idx] - b_numeric_grad) < 0.000001
