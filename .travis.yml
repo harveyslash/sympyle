@@ -7,5 +7,5 @@ install:
   - pip install codecov
 # command to run tests
 script:
-  - nose2 --with-coverage
+  - python -m pytest --cov=./
   - codecov

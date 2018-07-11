@@ -18,10 +18,10 @@ class SoftmaxWithCrossEntropyOpTest(unittest.TestCase):
         """
 
         # Setup graph with random values
-        np_inputs = np.linspace(0, 5, 5)
+        np_inputs = np.random.randn(5)
         np_targets = np.zeros(5)
         np_targets[0] = 1.0
-        array_slice = slice(1)
+        array_slice = slice(0, 1)
 
         error_tolerance = 0.00000001
 

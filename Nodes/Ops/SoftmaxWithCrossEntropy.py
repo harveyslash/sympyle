@@ -1,7 +1,7 @@
-from ..Node import Node
-from Nodes.Node import consts
 import numpy as np
-from functools import reduce
+
+from Nodes.Node import consts
+from ..Node import Node
 
 
 class SoftmaxWithCrossEntropy(Node):
@@ -28,7 +28,7 @@ class SoftmaxWithCrossEntropy(Node):
         cross_entropies = np.sum(cross_entropies, axis=self.axis)
         self.softmax = softmax
 
-        if len(self.batch_axis) > 0:
+        if self.batch_axis:
             return np.average(cross_entropies, axis=self.batch_axis)
 
         return cross_entropies
@@ -38,8 +38,7 @@ class SoftmaxWithCrossEntropy(Node):
         if respect_to_node == self.children[0]:
             softmax_output = self.softmax
             targets = self.children[1].forward()
-            return (softmax_output - targets) / reduce(lambda x, y: x * y,
-                                                       self.batch_axis + (1,))
+            return (softmax_output - targets) / np.prod(self.batch_axis)
 
         elif respect_to_node == self.children[1]:
             return consts.no_grads

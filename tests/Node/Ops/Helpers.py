@@ -21,9 +21,11 @@ def calculate_numerical_gradient(node, respect_to_node, node_slice=None,
 
     :param node_slice: In case of a respect to node that is non scalar,
                     a slice() object may be passed to modify the values that
-                    are indexed by this object. The values indexed by this
-                    parameter will be increased and decreased according to
-                    eps
+                    are indexed by this object. The value indexed by the object
+                    will be changed according the the formula.
+                    The value returned after slicing should be a single, scalar
+                    value.
+
 
     :param eps:     The epsilon value to use
     :return:        the numerically computed gradient value

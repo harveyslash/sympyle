@@ -1,6 +1,8 @@
 import unittest
-from Nodes import Add, Tensor
+
 import numpy as np
+
+from Nodes import Tensor
 from .Helpers import calculate_numerical_gradient
 
 
