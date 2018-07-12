@@ -12,5 +12,4 @@ install:
 script:
   - python setup.py test
   - codecov
-cache:
-  - pip
+cache: pip
