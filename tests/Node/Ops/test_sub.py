@@ -8,7 +8,7 @@ from .Helpers import calculate_numerical_gradient
 
 class Sub_Op(unittest.TestCase):
     """
-    Class for testing functionality of Addition operation
+    Class for testing functionality of Subtraction operation
     """
 
     def test_broadcast_backward(self):

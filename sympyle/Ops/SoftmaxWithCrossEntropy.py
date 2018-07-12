@@ -6,6 +6,8 @@ from sympyle.Node import consts
 
 class SoftmaxWithCrossEntropy(Node):
     """
+    This op fuses softmax and cross entropy together.
+    Doing this is numerically more stable than the ops separately.
     """
 
     def __init__(self, output, targets, axis=1):

@@ -9,7 +9,7 @@ from sympyle.Ops import MSE
 
 class Add_Op(unittest.TestCase):
     """
-    Class for testing functionality of Addition operation
+    Class for testing functionality of Matrix Multiplication operation
     """
 
     def test_broadcast_backward(self):
