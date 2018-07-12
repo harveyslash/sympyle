@@ -1,6 +1,6 @@
 import numpy as np
 
-from ..Node import Node
+from sympyle import Node
 
 
 class Relu(Node):

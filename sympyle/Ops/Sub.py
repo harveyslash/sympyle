@@ -1,5 +1,5 @@
-from ..Node import Node
-from ..Ops import Add
+from sympyle import Node
+from sympyle.Ops import Add
 
 
 class Sub(Node):

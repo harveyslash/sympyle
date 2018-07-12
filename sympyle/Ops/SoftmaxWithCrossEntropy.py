@@ -1,6 +1,7 @@
 import numpy as np
 
-from ..Node import Node, consts
+from sympyle import Node
+from sympyle.Node import consts
 
 
 class SoftmaxWithCrossEntropy(Node):

@@ -1,7 +1,7 @@
 import numpy as np
 
-from .. import Utils
-from ..Node import Node
+from sympyle import Node
+from sympyle import Utils
 
 
 class Add(Node):

@@ -30,7 +30,7 @@ class PyTest(TestCommand):
 
 setup(
         name='sympyle',
-        version='0.0.1dev1',
+        version='0.0.1.dev1',
         packages=find_packages(),
         url='https://github.com/harveyslash/sympyle',
         license='GNU GENERAL PUBLIC LICENSE',
