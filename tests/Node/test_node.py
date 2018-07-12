@@ -22,7 +22,8 @@ class NodeOp(unittest.TestCase):
 
         o = a + b
 
-        file_name = tempfile.gettempdir() + str(hash(os.times())) + ".png"
+        fname = str(hash(os.times())) + ".png"
+        full_name = os.path.join(tempfile.gettempdir(), fname)
 
-        o.draw_graph(file_name)
-        assert os.path.exists(file_name)
+        o.draw_graph(full_name)
+        assert os.path.exists(full_name)
