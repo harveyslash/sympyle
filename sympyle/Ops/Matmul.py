@@ -31,6 +31,8 @@ class Matmul(Node):
                       parent_grads)
 
     def backward(self, respect_to_node, parent_grads=None):
+        if parent_grads is None:
+            raise AttributeError("MatMul cannot be a root op")
 
         if respect_to_node == self.children[0]:  # with respect to a
             return self._gradients_for_a(parent_grads)

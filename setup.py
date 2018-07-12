@@ -1,11 +1,33 @@
 from setuptools import setup, find_packages
+import sys
+
+from setuptools.command.test import test as TestCommand
 
 REQUIRES = [
     "numpy"
 ]
 TEST_REQUIRES = [
-    "numpy", "pytest-cov", "coverage"
+    "numpy", "pytest", "pytest-cov", "coverage"
 ]
+
+
+class PyTest(TestCommand):
+
+    def initialize_options(self):
+        TestCommand.initialize_options(self)
+        self.pytest_args = ""
+
+    def run_tests(self):
+        import shlex
+
+        # import here, cause outside the eggs aren't loaded
+        import pytest
+        self.pytest_args = "--cov sympyle"
+
+        errno = pytest.main(shlex.split(self.pytest_args))
+        sys.exit(errno)
+
+
 setup(
         name='sympyle',
         version='0.0.1dev1',
@@ -17,5 +39,6 @@ setup(
         description='Simple Automatic Differentiation in Python ',
 
         install_requires=REQUIRES,
-        test_requires=TEST_REQUIRES,
+        tests_require=TEST_REQUIRES,
+        cmdclass={"test": PyTest},
 )

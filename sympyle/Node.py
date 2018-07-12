@@ -40,7 +40,6 @@ class Node(ABC):
         """
 
         self.children = children
-        self.parent = None
         self.forward_val = None
         self.backward_val = None
 
