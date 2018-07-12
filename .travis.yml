@@ -3,9 +3,9 @@ python:
   - "3.6"
 # command to install dependencies
 
-#install:
+install:
 #  - pip install -r requirements.txt
-#  - pip install codecov
+  - pip install codecov
 ## command to run tests
 
 script:
