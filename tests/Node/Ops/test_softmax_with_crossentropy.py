@@ -2,7 +2,8 @@ import unittest
 
 import numpy as np
 
-from Nodes import SoftmaxWithCrossEntropy, Tensor
+from sympyle import Tensor
+from sympyle.Ops import SoftmaxWithCrossEntropy
 from .Helpers import calculate_numerical_gradient
 
 

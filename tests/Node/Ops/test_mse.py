@@ -2,7 +2,8 @@ import unittest
 
 import numpy as np
 
-from Nodes import MSE, Tensor
+from sympyle import Tensor
+from sympyle.Ops import MSE
 from .Helpers import calculate_numerical_gradient
 
 

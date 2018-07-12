@@ -21,11 +21,11 @@ class Add_Op(unittest.TestCase):
         b = np.random.randn(1)
         t2 = Tensor(b)
 
-        add_op = t1 + t2
+        add_op = t1 - t2
 
         add_op.forward()
 
-        assert add_op.forward_val == (a + b)
+        assert add_op.forward_val == (a - b)
 
     def test_vector_forward(self):
         """
@@ -37,11 +37,11 @@ class Add_Op(unittest.TestCase):
         b = np.random.randn(10)
         t2 = Tensor(b)
 
-        add_op = t1 + t2
+        add_op = t1 - t2
 
         add_op.forward()
 
-        assert np.all(add_op.forward_val == (a + b))
+        assert np.all(add_op.forward_val == (a - b))
 
     def test_scalar_backward(self):
         """
@@ -52,7 +52,7 @@ class Add_Op(unittest.TestCase):
 
         a = Tensor(np.random.rand(1))
         b = Tensor(np.random.rand(1))
-        add_op = a + b
+        add_op = a - b
         add_op.backward()
 
         t1_grad = a.backward_val
@@ -82,7 +82,7 @@ class Add_Op(unittest.TestCase):
         a_idx = (0, 0, 1, 1)
         b_idx = (0, 1, 1, 1, 0)
 
-        add_op = a + b
+        add_op = a - b
 
         forward_val = add_op.forward()
         assert forward_val.shape == (1, 10, 3, 10, 3)

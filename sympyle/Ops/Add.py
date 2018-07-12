@@ -1,7 +1,7 @@
-from ..Node import Node
-from Nodes.Node import consts
 import numpy as np
-from Nodes import Utils
+
+from .. import Utils
+from ..Node import Node
 
 
 class Add(Node):

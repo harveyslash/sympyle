@@ -8,7 +8,6 @@ Maintaining a graph like structure makes backprop easy to track.
 __author__ = "Harshvardhan Gupta"
 from abc import ABC, abstractmethod
 from functools import wraps
-import pygraphviz as pgv
 from collections import namedtuple
 
 import types
@@ -96,6 +95,7 @@ class Node(ABC):
         :return:      None
         """
 
+        import pygraphviz as pgv
         if graph is None:
             graph = pgv.AGraph(directed=True, rankdir="BT")
             graph.layout('dot')
