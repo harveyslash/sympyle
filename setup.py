@@ -7,7 +7,7 @@ REQUIRES = [
     "numpy"
 ]
 TEST_REQUIRES = [
-    "numpy", "pytest", "pytest-cov", "coverage"
+    "numpy", "pytest", "pytest-cov", "coverage", "pygraphviz"
 ]
 
 
