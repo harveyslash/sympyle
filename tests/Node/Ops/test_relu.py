@@ -24,9 +24,9 @@ class Relu_Op(unittest.TestCase):
         gradients, the test is passed.
         """
 
-        a = Tensor(np.random.randn(1, 10))
+        a = Tensor(np.random.randn(10, 10))
         b = Tensor(np.random.randn(10, 1))
-        c = Tensor(np.random.randn(1, 1))
+        c = Tensor(np.random.randn(10, 1))
 
         matmul = a @ b
         relu = Relu(matmul)

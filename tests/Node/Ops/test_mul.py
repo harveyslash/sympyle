@@ -28,7 +28,7 @@ class Add_Op(unittest.TestCase):
 
         mse = MSE(a @ b, c)
 
-        a_idx = (0, 0)
+        a_idx = (0, 1)
         b_idx = (0, 0)
 
         forward_val = mse.forward()

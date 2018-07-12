@@ -6,11 +6,11 @@ Maintaining a graph like structure makes backprop easy to track.
 """
 
 __author__ = "Harshvardhan Gupta"
-from abc import ABC, abstractmethod
-from functools import wraps
-from collections import namedtuple
-
 import types
+from abc import ABC, abstractmethod
+from collections import namedtuple
+from functools import wraps
+import os
 
 consts = ["no_grads"]
 consts = namedtuple("constants", consts)
@@ -58,7 +58,7 @@ class Node(ABC):
         pass
 
     @abstractmethod
-    def backward(self, respect_to_node, parent_grads):
+    def backward(self, respect_to_node, parent_grads=None):
         """
         Calculate gradients of op
         :param respect_to_node: Which node to get the derivative with respect
@@ -97,7 +97,7 @@ class Node(ABC):
         import pygraphviz as pgv
         if graph is None:
             graph = pgv.AGraph(directed=True, rankdir="BT")
-            graph.layout('dot')
+            # graph.layout('dot')
 
             graph.add_node(id(self), label=self.__class__.__name__,
                            **self.attributes, color='red')
@@ -118,7 +118,14 @@ class Node(ABC):
             # graph.graph_attr.update(sep="+1")
             # graph.graph_attr.update(margin=5.0)
             graph.graph_attr.update(K=1)
-            graph.draw(file_name, prog='dot')
+
+            # saving to .dot file, then reading and
+            # saving as image prevents segfault for some reason
+            graph.write(file_name + ".dot")
+            graph = pgv.AGraph(file_name + ".dot")
+            graph.layout(prog='dot')
+            graph.draw(file_name)
+            os.remove(file_name + ".dot")
 
         return None
 
