@@ -27,3 +27,4 @@ class NodeOp(unittest.TestCase):
 
         o.draw_graph(full_name)
         assert os.path.exists(full_name)
+        os.remove(full_name)

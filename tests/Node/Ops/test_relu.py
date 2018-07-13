@@ -14,10 +14,7 @@ class Relu_Op(unittest.TestCase):
 
     def test_backward(self):
         """
-        Test broadcast functionality.
-        Arrays of different shapes are broadcast together.
-        The values of the gradients are compared with the gradients
-        from the slope formula.
+        Test Relu's gradient calculation.
 
         For simplifying testing, a graph with multiple nodes is used.
         if d(root)/d(x) is same from numerical as well as programmatic
