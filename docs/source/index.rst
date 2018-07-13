@@ -11,6 +11,11 @@ Welcome to Sympyle's documentation!
    :caption: Contents:
 
 
+.. automodule:: Node
+   :members:
+.. autoclass:: Ops.Add
+.. autoclass:: Ops.Add
+.. autoclass:: Ops.Add
 
 Indices and tables
 ==================
