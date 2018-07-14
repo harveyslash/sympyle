@@ -8,6 +8,10 @@ Simple Symbolic Graphs in Python
 
 
 ## About
+
+##### Project documentation: http://harveyslash.github.io/sympyle/
+
+
 Sympyle is a Python library to demonstrate the inner workings of Computational
 Graphs. Computational Graphs are used by highly optimised computational
 frameworks like [tensorflow](https://tensorflow.org) and
