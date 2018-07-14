@@ -28,15 +28,20 @@ class PyTest(TestCommand):
         sys.exit(errno)
 
 
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
 setup(
         name='sympyle',
-        version='0.0.1.dev1',
+        version='0.0.12',
         packages=find_packages(),
         url='https://github.com/harveyslash/sympyle',
         license='GNU GENERAL PUBLIC LICENSE',
         author='Harshvardhan Gupta',
         author_email='theharshvardhangupta@gmail.com',
         description='Simple Automatic Differentiation in Python ',
+        long_description=long_description,
+        long_description_content_type="text/markdown",
 
         install_requires=REQUIRES,
         tests_require=TEST_REQUIRES,

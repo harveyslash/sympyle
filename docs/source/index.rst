@@ -9,15 +9,25 @@ Sympyle
 .. rubric:: Simple Symbolic Graphs in Python
 
 .. toctree::
-   :hidden:
    :maxdepth: 2
    :caption: Basics
 
    Overview <self>
+   Installation <installation>
+
+
+
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contributing
+
+   Contributing <contributing>
 
 .. contents::
    :local:
-   :depth: 1
+   :depth: 2
+
 
 
 
@@ -36,10 +46,25 @@ However, these frameworks make several assumptions and optimisations in order
 to optimise for speed and memory. This often makes it harder to understand
 the inner workings of how these libraries work.
 
+What Sympyle is
+---------------
+
 Sympyle is a simplified model library to demonstrate the working of
 computational graphs, and how
 `backpropagation <https://en.wikipedia.org/wiki/Backpropagation>`_
 works on arbitrary 'networks'.
 
+Each "operation" will contain detailed documentation on the derivation, and
+whenever possible, additional resources to better understand it.
+
+
+
+What Sympyle is Not
+-------------------
+
+Sympyle is not a production ready library. It should not be thought of as
+a competitor to larger frameworks like ``Tensorflow``.
+
+It will also likely not implement all the ops that other libraries use.
 
 

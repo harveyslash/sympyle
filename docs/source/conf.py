@@ -103,6 +103,11 @@ html_context = {
         'https://fonts.googleapis.com/css?family=Lato',
         '_static/theme.css'
     ],
+    "display_github": True,  # Integrate GitHub
+    "github_user": "harveyslash",  # Username
+    "github_repo": "sympyle",  # Repo name
+    "github_version": "master",  # Version
+    "conf_py_path": "/docs/source/",  # Path in the checkout to the docs root
 }
 # Custom sidebar templates, must be a dictionary that maps document names
 # to template names.
