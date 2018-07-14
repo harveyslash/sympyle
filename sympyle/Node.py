@@ -1,24 +1,23 @@
-"""
-Abstract node class to act as a symbolic placeholder for
-operations.
-
-Maintaining a graph like structure makes backprop easy to track.
-"""
-
 __author__ = "Harshvardhan Gupta"
+import os
 import types
 from abc import ABC, abstractmethod
 from collections import namedtuple
 from functools import wraps
-import os
 
 consts = ["no_grads"]
 consts = namedtuple("constants", consts)
 
-__all__ = ['Node', 'consts']
+__all__ = ['Node']
 
 
 class Node(ABC):
+    """
+    Abstract node class to act as a symbolic placeholder for
+    operations.
+
+    Maintaining a graph like structure makes backprop easy to track.
+    """
 
     @property
     def attributes(self):
