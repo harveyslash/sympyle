@@ -19,7 +19,7 @@ the inner workings of how these libraries work.
 
 Sympyle is a simplified model library to demonstrate the working of
 computational graphs, and how
-[backpropagation] (https://en.wikipedia.org/wiki/Backpropagation)
+[backpropagation](https://en.wikipedia.org/wiki/Backpropagation)
 works on arbitrary 'networks'.
 
 ### Examples and tutorials coming soon
