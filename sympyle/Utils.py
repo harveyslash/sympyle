@@ -22,8 +22,10 @@ def get_broadcast_axes(broadcasted_arr_shape, broadcasting_arr_shape):
         if dim2 != dim1 and dim1 != 1:
             break
 
-        if dim1 == 1:
+        if dim1 == 1 and dim2 != 1:
             broadcast_dims_list.append(
                     len(broadcasted_arr_shape.shape) - i - 1)
 
-    return tuple(broadcast_dims_list)
+    len_diff = len(broadcasted_arr_shape.shape) - len(
+        broadcasting_arr_shape.shape)
+    return tuple(broadcast_dims_list) + tuple(range(len_diff))

@@ -81,7 +81,7 @@ class Node(ABC):
 
         return Sub(self, other)
 
-    def draw_graph(self, file_name, graph=None, root=True):
+    def draw_graph(self, file_name=None, graph=None, root=True):
         """
         Draw the computation graph visualisation and save it with the specified
         filename. This function recursively goes to all children and adds nodes
@@ -112,7 +112,7 @@ class Node(ABC):
             # graph.add_subgraph([id(child) for child in self.children],
             #                    rank='same')
         if root:
-            # graph.graph_attr.update(dpi=100)
+            graph.graph_attr.update(dpi=100)
             # graph.graph_attr.update(overlap="scalexy")
             # graph.graph_attr.update(sep="+1")
             # graph.graph_attr.update(margin=5.0)
@@ -120,11 +120,13 @@ class Node(ABC):
 
             # saving to .dot file, then reading and
             # saving as image prevents segfault for some reason
-            graph.write(file_name + ".dot")
-            graph = pgv.AGraph(file_name + ".dot")
-            graph.layout(prog='dot')
-            graph.draw(file_name)
-            os.remove(file_name + ".dot")
+            if file_name:
+                graph.write(file_name + ".dot")
+                graph = pgv.AGraph(file_name + ".dot")
+                graph.layout(prog='dot')
+                graph.draw(file_name)
+                os.remove(file_name + ".dot")
+            return graph.draw(format='png', prog='dot')
 
         return None
 

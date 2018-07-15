@@ -7,6 +7,7 @@ The latest stable version can be downloaded using pip::
 
 
 
+
 Dependency Stack
 ################
 Sympyle is designed to have a very low dependency stack.
@@ -27,6 +28,6 @@ After installing ``graphviz``, ``pygraphviz`` can be installed using pip::
 .. note:: For mac users, giving pip the location of graphviz is required.
 	If graphviz is installed using brew, this may be done using::
 
-		pip install pygraphviz
+		pip install pygraphviz \
 		--install-option="--include-path=/usr/local/include/graphviz/" \
 		--install-option="--library-path=/usr/local/lib/graphviz"

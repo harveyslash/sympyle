@@ -11,16 +11,16 @@ Sympyle
 .. toctree::
    :maxdepth: 2
    :caption: Basics
+   :hidden:
 
    Overview <self>
    Installation <installation>
 
 
-
-
 .. toctree::
    :maxdepth: 2
    :caption: Contributing
+   :hidden:
 
    Contributing <contributing>
 
@@ -32,10 +32,12 @@ Sympyle
 
 
 
+.. automodule:: sympyle.Ops
+   :members:
 
 
 About
-=====
+#####
 
 Sympyle is a Python library to demonstrate the inner workings of Computational
 Graphs. Computational Graphs are used by highly optimised computational
