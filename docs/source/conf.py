@@ -196,11 +196,9 @@ nbsphinx_prolog = """
         :format: html
         
         
-    .. note::
-    
-    
-        This page was generated from `{{ docname }}`__.
-        Interactive online version:
+    .. admonition::  ATTENTION
+
+        You can interact with this notebook online at 
         :raw-html:`<a href="https://mybinder.org/v2/gh/harveyslash/sympyle/master
         ?filepath={{ docname }}"><img alt="Binder badge" src="https://mybinder.org/badge.svg" style="vertical-align:text-bottom"></a>`
         
@@ -209,5 +207,3 @@ nbsphinx_prolog = """
 """
 
 nbsphinx_timeout = 6000
-
-
