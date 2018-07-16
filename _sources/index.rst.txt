@@ -16,7 +16,10 @@ Sympyle
    Overview <self>
    Installation <installation>
 
+.. toctree::
+   :maxdepth: 2
    :caption: Tutorials
+
    Logistic Regression <tutorials/Logistic-Regression.ipynb>
 
 .. toctree::
