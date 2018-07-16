@@ -16,6 +16,8 @@ Sympyle
    Overview <self>
    Installation <installation>
 
+   :caption: Tutorials
+   Logistic Regression <tutorials/Logistic-Regression.ipynb>
 
 .. toctree::
    :maxdepth: 2
@@ -27,9 +29,6 @@ Sympyle
 .. contents::
    :local:
    :depth: 2
-
-
-
 
 
 .. automodule:: sympyle.Ops

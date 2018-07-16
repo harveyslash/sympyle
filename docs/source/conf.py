@@ -17,6 +17,8 @@ import os
 import sys
 
 sys.path.insert(0, os.path.abspath('../../'))
+sys.path.insert(0, os.path.abspath('../../tutorials/'))
+print(os.path.abspath('../../tutorials'))
 
 # -- Project information -----------------------------------------------------
 
@@ -49,7 +51,8 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinx.ext.githubpages',
     'sphinxcontrib.mermaid',
-    'sphinx.ext.napoleon'
+    'sphinx.ext.napoleon',
+    'nbsphinx'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -184,3 +187,28 @@ intersphinx_mapping = {
     'python': ('https://docs.python.org/', None),
     'numpy': ('http://docs.scipy.org/doc/numpy/', None),
 }
+nbsphinx_prolog = """
+{% set docname = env.doc2path(env.docname, base=None) %}
+
+.. only:: html
+
+    .. role:: raw-html(raw)
+        :format: html
+        
+        
+    .. nbinfo::
+    
+    
+        This page was generated from `{{ docname }}`__.
+        Interactive online version:
+        :raw-html:`<a href="https://mybinder.org/v2/gh/spatialaudio/nbsphinx/
+        {{ env.config.release }}?filepath={{ docname }}"><img alt="Binder badge" src="https://mybinder.org/badge.svg" style="vertical-align:text-bottom"></a>`
+        
+        
+    __ https://github.com/spatialaudio/nbsphinx/blob/
+    {{ env.config.release }}/{{ docname }}
+"""
+
+nbsphinx_timeout = 6000
+
+
