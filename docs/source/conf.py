@@ -188,7 +188,7 @@ intersphinx_mapping = {
     'numpy': ('http://docs.scipy.org/doc/numpy/', None),
 }
 nbsphinx_prolog = """
-{% set docname = env.doc2path(env.docname, base=None) %}
+{% set docname = env.doc2path(env.docname, base="docs/source/") %}
 
 .. only:: html
 
@@ -196,17 +196,16 @@ nbsphinx_prolog = """
         :format: html
         
         
-    .. nbinfo::
+    .. note::
     
     
         This page was generated from `{{ docname }}`__.
         Interactive online version:
-        :raw-html:`<a href="https://mybinder.org/v2/gh/spatialaudio/nbsphinx/
-        {{ env.config.release }}?filepath={{ docname }}"><img alt="Binder badge" src="https://mybinder.org/badge.svg" style="vertical-align:text-bottom"></a>`
+        :raw-html:`<a href="https://mybinder.org/v2/gh/harveyslash/sympyle/master
+        ?filepath={{ docname }}"><img alt="Binder badge" src="https://mybinder.org/badge.svg" style="vertical-align:text-bottom"></a>`
         
         
-    __ https://github.com/spatialaudio/nbsphinx/blob/
-    {{ env.config.release }}/{{ docname }}
+    __ https://github.com/harveyslash/sympyle/blob/master/{{ docname }}
 """
 
 nbsphinx_timeout = 6000
