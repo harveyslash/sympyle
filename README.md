@@ -26,6 +26,6 @@ computational graphs, and how
 [backpropagation](https://en.wikipedia.org/wiki/Backpropagation)
 works on arbitrary 'networks'.
 
-### Examples and tutorials coming soon
+### Examples and tutorials
 
-For now , you can see tests/ folder for usage 
+All tutorials are under docs/source/tutorials and interactible at https://harveyslash.github.io/sympyle/tutorials/
