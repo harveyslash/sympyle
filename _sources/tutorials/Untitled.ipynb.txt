@@ -1,0 +1,294 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# AAA\n",
+    "\n",
+    "aaa"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'0.7.1'"
+      ]
+     },
+     "execution_count": 10,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "\n",
+    "import plotly.plotly as py\n",
+    "import plotly.graph_objs as go\n",
+    "\n",
+    "import igraph\n",
+    "from igraph import *\n",
+    "igraph.__version__"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "\n",
+    "nr_vertices = 25\n",
+    "v_label = map(str, range(nr_vertices))\n",
+    "G = Graph.Tree(nr_vertices, 2) # 2 stands for children number\n",
+    "lay = G.layout('rt')\n",
+    "\n",
+    "position = {k: lay[k] for k in range(nr_vertices)}\n",
+    "Y = [lay[k][1] for k in range(nr_vertices)]\n",
+    "M = max(Y)\n",
+    "\n",
+    "es = EdgeSeq(G) # sequence of edges\n",
+    "E = [e.tuple for e in G.es] # list of edges\n",
+    "\n",
+    "L = len(position)\n",
+    "Xn = [position[k][0] for k in range(L)]\n",
+    "Yn = [2*M-position[k][1] for k in range(L)]\n",
+    "Xe = []\n",
+    "Ye = []\n",
+    "for edge in E:\n",
+    "    Xe+=[position[edge[0]][0],position[edge[1]][0], None]\n",
+    "    Ye+=[2*M-position[edge[0]][1],2*M-position[edge[1]][1], None] \n",
+    "\n",
+    "labels = v_label"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "ValueError",
+     "evalue": "\n    Invalid value of type 'builtins.str' received for the 'symbol' property of scatter.marker\n        Received value: 'dot'\n\n    The 'symbol' property is an enumeration that may be specified as:\n      - One of the following enumeration values:\n            [0, 'circle', 100, 'circle-open', 200, 'circle-dot', 300,\n            'circle-open-dot', 1, 'square', 101, 'square-open', 201,\n            'square-dot', 301, 'square-open-dot', 2, 'diamond', 102,\n            'diamond-open', 202, 'diamond-dot', 302,\n            'diamond-open-dot', 3, 'cross', 103, 'cross-open', 203,\n            'cross-dot', 303, 'cross-open-dot', 4, 'x', 104, 'x-open',\n            204, 'x-dot', 304, 'x-open-dot', 5, 'triangle-up', 105,\n            'triangle-up-open', 205, 'triangle-up-dot', 305,\n            'triangle-up-open-dot', 6, 'triangle-down', 106,\n            'triangle-down-open', 206, 'triangle-down-dot', 306,\n            'triangle-down-open-dot', 7, 'triangle-left', 107,\n            'triangle-left-open', 207, 'triangle-left-dot', 307,\n            'triangle-left-open-dot', 8, 'triangle-right', 108,\n            'triangle-right-open', 208, 'triangle-right-dot', 308,\n            'triangle-right-open-dot', 9, 'triangle-ne', 109,\n            'triangle-ne-open', 209, 'triangle-ne-dot', 309,\n            'triangle-ne-open-dot', 10, 'triangle-se', 110,\n            'triangle-se-open', 210, 'triangle-se-dot', 310,\n            'triangle-se-open-dot', 11, 'triangle-sw', 111,\n            'triangle-sw-open', 211, 'triangle-sw-dot', 311,\n            'triangle-sw-open-dot', 12, 'triangle-nw', 112,\n            'triangle-nw-open', 212, 'triangle-nw-dot', 312,\n            'triangle-nw-open-dot', 13, 'pentagon', 113,\n            'pentagon-open', 213, 'pentagon-dot', 313,\n            'pentagon-open-dot', 14, 'hexagon', 114, 'hexagon-open',\n            214, 'hexagon-dot', 314, 'hexagon-open-dot', 15,\n            'hexagon2', 115, 'hexagon2-open', 215, 'hexagon2-dot',\n            315, 'hexagon2-open-dot', 16, 'octagon', 116,\n            'octagon-open', 216, 'octagon-dot', 316,\n            'octagon-open-dot', 17, 'star', 117, 'star-open', 217,\n            'star-dot', 317, 'star-open-dot', 18, 'hexagram', 118,\n            'hexagram-open', 218, 'hexagram-dot', 318,\n            'hexagram-open-dot', 19, 'star-triangle-up', 119,\n            'star-triangle-up-open', 219, 'star-triangle-up-dot', 319,\n            'star-triangle-up-open-dot', 20, 'star-triangle-down',\n            120, 'star-triangle-down-open', 220,\n            'star-triangle-down-dot', 320,\n            'star-triangle-down-open-dot', 21, 'star-square', 121,\n            'star-square-open', 221, 'star-square-dot', 321,\n            'star-square-open-dot', 22, 'star-diamond', 122,\n            'star-diamond-open', 222, 'star-diamond-dot', 322,\n            'star-diamond-open-dot', 23, 'diamond-tall', 123,\n            'diamond-tall-open', 223, 'diamond-tall-dot', 323,\n            'diamond-tall-open-dot', 24, 'diamond-wide', 124,\n            'diamond-wide-open', 224, 'diamond-wide-dot', 324,\n            'diamond-wide-open-dot', 25, 'hourglass', 125,\n            'hourglass-open', 26, 'bowtie', 126, 'bowtie-open', 27,\n            'circle-cross', 127, 'circle-cross-open', 28, 'circle-x',\n            128, 'circle-x-open', 29, 'square-cross', 129,\n            'square-cross-open', 30, 'square-x', 130, 'square-x-open',\n            31, 'diamond-cross', 131, 'diamond-cross-open', 32,\n            'diamond-x', 132, 'diamond-x-open', 33, 'cross-thin', 133,\n            'cross-thin-open', 34, 'x-thin', 134, 'x-thin-open', 35,\n            'asterisk', 135, 'asterisk-open', 36, 'hash', 136,\n            'hash-open', 236, 'hash-dot', 336, 'hash-open-dot', 37,\n            'y-up', 137, 'y-up-open', 38, 'y-down', 138,\n            'y-down-open', 39, 'y-left', 139, 'y-left-open', 40,\n            'y-right', 140, 'y-right-open', 41, 'line-ew', 141,\n            'line-ew-open', 42, 'line-ns', 142, 'line-ns-open', 43,\n            'line-ne', 143, 'line-ne-open', 44, 'line-nw', 144,\n            'line-nw-open']\n      - A tuple, list, or one-dimensional numpy array of the above",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mValueError\u001b[0m                                Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-12-23c95926ce52>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[1;32m     16\u001b[0m                   \u001b[0mtext\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0mlabels\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     17\u001b[0m                   \u001b[0mhoverinfo\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0;34m'text'\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 18\u001b[0;31m                   \u001b[0mopacity\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0;36m0.8\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     19\u001b[0m                   )\n",
+      "\u001b[0;32m~/.virtualenvs/delta/lib/python3.6/site-packages/plotly/graph_objs/_scatter.py\u001b[0m in \u001b[0;36m__init__\u001b[0;34m(self, arg, cliponaxis, connectgaps, customdata, customdatasrc, dx, dy, error_x, error_y, fill, fillcolor, hoverinfo, hoverinfosrc, hoverlabel, hoveron, hovertext, hovertextsrc, ids, idssrc, legendgroup, line, marker, mode, name, opacity, r, rsrc, selected, selectedpoints, showlegend, stream, t, text, textfont, textposition, textpositionsrc, textsrc, tsrc, uid, unselected, visible, x, x0, xaxis, xcalendar, xsrc, y, y0, yaxis, ycalendar, ysrc, **kwargs)\u001b[0m\n\u001b[1;32m   2081\u001b[0m         \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mline\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mline\u001b[0m \u001b[0;32mif\u001b[0m \u001b[0mline\u001b[0m \u001b[0;32mis\u001b[0m \u001b[0;32mnot\u001b[0m \u001b[0;32mNone\u001b[0m \u001b[0;32melse\u001b[0m \u001b[0mv\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2082\u001b[0m         \u001b[0mv\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0marg\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mpop\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m'marker'\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;32mNone\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 2083\u001b[0;31m         \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mmarker\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mmarker\u001b[0m \u001b[0;32mif\u001b[0m \u001b[0mmarker\u001b[0m \u001b[0;32mis\u001b[0m \u001b[0;32mnot\u001b[0m \u001b[0;32mNone\u001b[0m \u001b[0;32melse\u001b[0m \u001b[0mv\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m   2084\u001b[0m         \u001b[0mv\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0marg\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mpop\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m'mode'\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;32mNone\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2085\u001b[0m         \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mmode\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mmode\u001b[0m \u001b[0;32mif\u001b[0m \u001b[0mmode\u001b[0m \u001b[0;32mis\u001b[0m \u001b[0;32mnot\u001b[0m \u001b[0;32mNone\u001b[0m \u001b[0;32melse\u001b[0m \u001b[0mv\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/.virtualenvs/delta/lib/python3.6/site-packages/plotly/basedatatypes.py\u001b[0m in \u001b[0;36m__setattr__\u001b[0;34m(self, prop, value)\u001b[0m\n\u001b[1;32m   2664\u001b[0m                 prop in self._validators):\n\u001b[1;32m   2665\u001b[0m             \u001b[0;31m# Let known properties and private properties through\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 2666\u001b[0;31m             \u001b[0msuper\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mBasePlotlyType\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m__setattr__\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mprop\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mvalue\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m   2667\u001b[0m         \u001b[0;32melse\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2668\u001b[0m             \u001b[0;31m# Raise error on unknown public properties\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/.virtualenvs/delta/lib/python3.6/site-packages/plotly/graph_objs/_scatter.py\u001b[0m in \u001b[0;36mmarker\u001b[0;34m(self, val)\u001b[0m\n\u001b[1;32m    801\u001b[0m     \u001b[0;34m@\u001b[0m\u001b[0mmarker\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0msetter\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    802\u001b[0m     \u001b[0;32mdef\u001b[0m \u001b[0mmarker\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mself\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mval\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 803\u001b[0;31m         \u001b[0mself\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;34m'marker'\u001b[0m\u001b[0;34m]\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mval\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    804\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    805\u001b[0m     \u001b[0;31m# mode\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/.virtualenvs/delta/lib/python3.6/site-packages/plotly/basedatatypes.py\u001b[0m in \u001b[0;36m__setitem__\u001b[0;34m(self, prop, value)\u001b[0m\n\u001b[1;32m   2627\u001b[0m             \u001b[0;31m# ### Handle compound property ###\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2628\u001b[0m             \u001b[0;32mif\u001b[0m \u001b[0misinstance\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mvalidator\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mCompoundValidator\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 2629\u001b[0;31m                 \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_set_compound_prop\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mprop\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mvalue\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m   2630\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2631\u001b[0m             \u001b[0;31m# ### Handle compound array property ###\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/.virtualenvs/delta/lib/python3.6/site-packages/plotly/basedatatypes.py\u001b[0m in \u001b[0;36m_set_compound_prop\u001b[0;34m(self, prop, val)\u001b[0m\n\u001b[1;32m   2925\u001b[0m         \u001b[0mvalidator\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_validators\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mget\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mprop\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2926\u001b[0m         \u001b[0;31m# type: BasePlotlyType\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 2927\u001b[0;31m         \u001b[0mval\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mvalidator\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mvalidate_coerce\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mval\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m   2928\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2929\u001b[0m         \u001b[0;31m# Save deep copies of current and new states\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/.virtualenvs/delta/lib/python3.6/site-packages/_plotly_utils/basevalidators.py\u001b[0m in \u001b[0;36mvalidate_coerce\u001b[0;34m(self, v)\u001b[0m\n\u001b[1;32m   1783\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   1784\u001b[0m         \u001b[0;32melif\u001b[0m \u001b[0misinstance\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mv\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mdict\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 1785\u001b[0;31m             \u001b[0mv\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mdata_class\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m**\u001b[0m\u001b[0mv\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m   1786\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   1787\u001b[0m         \u001b[0;32melif\u001b[0m \u001b[0misinstance\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mv\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mdata_class\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/.virtualenvs/delta/lib/python3.6/site-packages/plotly/graph_objs/scatter/_marker.py\u001b[0m in \u001b[0;36m__init__\u001b[0;34m(self, arg, autocolorscale, cauto, cmax, cmin, color, colorbar, colorscale, colorsrc, gradient, line, maxdisplayed, opacity, opacitysrc, reversescale, showscale, size, sizemin, sizemode, sizeref, sizesrc, symbol, symbolsrc, **kwargs)\u001b[0m\n\u001b[1;32m   1237\u001b[0m         \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0msizesrc\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0msizesrc\u001b[0m \u001b[0;32mif\u001b[0m \u001b[0msizesrc\u001b[0m \u001b[0;32mis\u001b[0m \u001b[0;32mnot\u001b[0m \u001b[0;32mNone\u001b[0m \u001b[0;32melse\u001b[0m \u001b[0mv\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   1238\u001b[0m         \u001b[0mv\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0marg\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mpop\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m'symbol'\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;32mNone\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 1239\u001b[0;31m         \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0msymbol\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0msymbol\u001b[0m \u001b[0;32mif\u001b[0m \u001b[0msymbol\u001b[0m \u001b[0;32mis\u001b[0m \u001b[0;32mnot\u001b[0m \u001b[0;32mNone\u001b[0m \u001b[0;32melse\u001b[0m \u001b[0mv\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m   1240\u001b[0m         \u001b[0mv\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0marg\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mpop\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m'symbolsrc'\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;32mNone\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   1241\u001b[0m         \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0msymbolsrc\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0msymbolsrc\u001b[0m \u001b[0;32mif\u001b[0m \u001b[0msymbolsrc\u001b[0m \u001b[0;32mis\u001b[0m \u001b[0;32mnot\u001b[0m \u001b[0;32mNone\u001b[0m \u001b[0;32melse\u001b[0m \u001b[0mv\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/.virtualenvs/delta/lib/python3.6/site-packages/plotly/basedatatypes.py\u001b[0m in \u001b[0;36m__setattr__\u001b[0;34m(self, prop, value)\u001b[0m\n\u001b[1;32m   2664\u001b[0m                 prop in self._validators):\n\u001b[1;32m   2665\u001b[0m             \u001b[0;31m# Let known properties and private properties through\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 2666\u001b[0;31m             \u001b[0msuper\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mBasePlotlyType\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m__setattr__\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mprop\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mvalue\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m   2667\u001b[0m         \u001b[0;32melse\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2668\u001b[0m             \u001b[0;31m# Raise error on unknown public properties\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/.virtualenvs/delta/lib/python3.6/site-packages/plotly/graph_objs/scatter/_marker.py\u001b[0m in \u001b[0;36msymbol\u001b[0;34m(self, val)\u001b[0m\n\u001b[1;32m    872\u001b[0m     \u001b[0;34m@\u001b[0m\u001b[0msymbol\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0msetter\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    873\u001b[0m     \u001b[0;32mdef\u001b[0m \u001b[0msymbol\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mself\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mval\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 874\u001b[0;31m         \u001b[0mself\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;34m'symbol'\u001b[0m\u001b[0;34m]\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mval\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    875\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    876\u001b[0m     \u001b[0;31m# symbolsrc\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/.virtualenvs/delta/lib/python3.6/site-packages/plotly/basedatatypes.py\u001b[0m in \u001b[0;36m__setitem__\u001b[0;34m(self, prop, value)\u001b[0m\n\u001b[1;32m   2636\u001b[0m             \u001b[0;31m# ### Handle simple property ###\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2637\u001b[0m             \u001b[0;32melse\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 2638\u001b[0;31m                 \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_set_prop\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mprop\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mvalue\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m   2639\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2640\u001b[0m         \u001b[0;31m# Handle non-scalar case\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/.virtualenvs/delta/lib/python3.6/site-packages/plotly/basedatatypes.py\u001b[0m in \u001b[0;36m_set_prop\u001b[0;34m(self, prop, val)\u001b[0m\n\u001b[1;32m   2866\u001b[0m         \u001b[0;31m# ------------\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2867\u001b[0m         \u001b[0mvalidator\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_validators\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mget\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mprop\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 2868\u001b[0;31m         \u001b[0mval\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mvalidator\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mvalidate_coerce\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mval\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m   2869\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2870\u001b[0m         \u001b[0;31m# val is None\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/.virtualenvs/delta/lib/python3.6/site-packages/_plotly_utils/basevalidators.py\u001b[0m in \u001b[0;36mvalidate_coerce\u001b[0;34m(self, v)\u001b[0m\n\u001b[1;32m    486\u001b[0m             \u001b[0mv\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mperform_replacemenet\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mv\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    487\u001b[0m             \u001b[0;32mif\u001b[0m \u001b[0;32mnot\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0min_values\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mv\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 488\u001b[0;31m                 \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mraise_invalid_val\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mv\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    489\u001b[0m         \u001b[0;32mreturn\u001b[0m \u001b[0mv\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    490\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/.virtualenvs/delta/lib/python3.6/site-packages/_plotly_utils/basevalidators.py\u001b[0m in \u001b[0;36mraise_invalid_val\u001b[0;34m(self, v)\u001b[0m\n\u001b[1;32m    214\u001b[0m             \u001b[0mtyp\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0mtype_str\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mv\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    215\u001b[0m             \u001b[0mv\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0mrepr\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mv\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 216\u001b[0;31m             valid_clr_desc=self.description()))\n\u001b[0m\u001b[1;32m    217\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    218\u001b[0m     \u001b[0;32mdef\u001b[0m \u001b[0mraise_invalid_elements\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mself\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0minvalid_els\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;31mValueError\u001b[0m: \n    Invalid value of type 'builtins.str' received for the 'symbol' property of scatter.marker\n        Received value: 'dot'\n\n    The 'symbol' property is an enumeration that may be specified as:\n      - One of the following enumeration values:\n            [0, 'circle', 100, 'circle-open', 200, 'circle-dot', 300,\n            'circle-open-dot', 1, 'square', 101, 'square-open', 201,\n            'square-dot', 301, 'square-open-dot', 2, 'diamond', 102,\n            'diamond-open', 202, 'diamond-dot', 302,\n            'diamond-open-dot', 3, 'cross', 103, 'cross-open', 203,\n            'cross-dot', 303, 'cross-open-dot', 4, 'x', 104, 'x-open',\n            204, 'x-dot', 304, 'x-open-dot', 5, 'triangle-up', 105,\n            'triangle-up-open', 205, 'triangle-up-dot', 305,\n            'triangle-up-open-dot', 6, 'triangle-down', 106,\n            'triangle-down-open', 206, 'triangle-down-dot', 306,\n            'triangle-down-open-dot', 7, 'triangle-left', 107,\n            'triangle-left-open', 207, 'triangle-left-dot', 307,\n            'triangle-left-open-dot', 8, 'triangle-right', 108,\n            'triangle-right-open', 208, 'triangle-right-dot', 308,\n            'triangle-right-open-dot', 9, 'triangle-ne', 109,\n            'triangle-ne-open', 209, 'triangle-ne-dot', 309,\n            'triangle-ne-open-dot', 10, 'triangle-se', 110,\n            'triangle-se-open', 210, 'triangle-se-dot', 310,\n            'triangle-se-open-dot', 11, 'triangle-sw', 111,\n            'triangle-sw-open', 211, 'triangle-sw-dot', 311,\n            'triangle-sw-open-dot', 12, 'triangle-nw', 112,\n            'triangle-nw-open', 212, 'triangle-nw-dot', 312,\n            'triangle-nw-open-dot', 13, 'pentagon', 113,\n            'pentagon-open', 213, 'pentagon-dot', 313,\n            'pentagon-open-dot', 14, 'hexagon', 114, 'hexagon-open',\n            214, 'hexagon-dot', 314, 'hexagon-open-dot', 15,\n            'hexagon2', 115, 'hexagon2-open', 215, 'hexagon2-dot',\n            315, 'hexagon2-open-dot', 16, 'octagon', 116,\n            'octagon-open', 216, 'octagon-dot', 316,\n            'octagon-open-dot', 17, 'star', 117, 'star-open', 217,\n            'star-dot', 317, 'star-open-dot', 18, 'hexagram', 118,\n            'hexagram-open', 218, 'hexagram-dot', 318,\n            'hexagram-open-dot', 19, 'star-triangle-up', 119,\n            'star-triangle-up-open', 219, 'star-triangle-up-dot', 319,\n            'star-triangle-up-open-dot', 20, 'star-triangle-down',\n            120, 'star-triangle-down-open', 220,\n            'star-triangle-down-dot', 320,\n            'star-triangle-down-open-dot', 21, 'star-square', 121,\n            'star-square-open', 221, 'star-square-dot', 321,\n            'star-square-open-dot', 22, 'star-diamond', 122,\n            'star-diamond-open', 222, 'star-diamond-dot', 322,\n            'star-diamond-open-dot', 23, 'diamond-tall', 123,\n            'diamond-tall-open', 223, 'diamond-tall-dot', 323,\n            'diamond-tall-open-dot', 24, 'diamond-wide', 124,\n            'diamond-wide-open', 224, 'diamond-wide-dot', 324,\n            'diamond-wide-open-dot', 25, 'hourglass', 125,\n            'hourglass-open', 26, 'bowtie', 126, 'bowtie-open', 27,\n            'circle-cross', 127, 'circle-cross-open', 28, 'circle-x',\n            128, 'circle-x-open', 29, 'square-cross', 129,\n            'square-cross-open', 30, 'square-x', 130, 'square-x-open',\n            31, 'diamond-cross', 131, 'diamond-cross-open', 32,\n            'diamond-x', 132, 'diamond-x-open', 33, 'cross-thin', 133,\n            'cross-thin-open', 34, 'x-thin', 134, 'x-thin-open', 35,\n            'asterisk', 135, 'asterisk-open', 36, 'hash', 136,\n            'hash-open', 236, 'hash-dot', 336, 'hash-open-dot', 37,\n            'y-up', 137, 'y-up-open', 38, 'y-down', 138,\n            'y-down-open', 39, 'y-left', 139, 'y-left-open', 40,\n            'y-right', 140, 'y-right-open', 41, 'line-ew', 141,\n            'line-ew-open', 42, 'line-ns', 142, 'line-ns-open', 43,\n            'line-ne', 143, 'line-ne-open', 44, 'line-nw', 144,\n            'line-nw-open']\n      - A tuple, list, or one-dimensional numpy array of the above"
+     ]
+    }
+   ],
+   "source": [
+    "lines = go.Scatter(x=Xe,\n",
+    "                   y=Ye,\n",
+    "                   mode='lines',\n",
+    "                   line=dict(color='rgb(210,210,210)', width=1),\n",
+    "                   hoverinfo='none'\n",
+    "                   )\n",
+    "dots = go.Scatter(x=Xn,\n",
+    "                  y=Yn,\n",
+    "                  mode='markers',\n",
+    "                  name='',\n",
+    "                  marker=dict(symbol='dot',\n",
+    "                                size=18, \n",
+    "                                color='#6175c1',    #'#DB4551', \n",
+    "                                line=dict(color='rgb(50,50,50)', width=1)\n",
+    "                                ),\n",
+    "                  text=labels,\n",
+    "                  hoverinfo='text',\n",
+    "                  opacity=0.8\n",
+    "                  )"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "application/vnd.plotly.v1+json": {
+       "data": [
+        {
+         "type": "scatter",
+         "uid": "2b3ce174-89c1-11e8-ac0a-a0999b1548f1",
+         "x": [
+          1,
+          2,
+          3
+         ],
+         "y": [
+          3,
+          1,
+          6
+         ]
+        }
+       ],
+       "layout": {}
+      },
+      "text/html": [
+       "<div id=\"c0f58de7-be70-44d1-818b-3e7dc0e22087\" style=\"height: 525px; width: 100%;\" class=\"plotly-graph-div\"></div><script type=\"text/javascript\">require([\"plotly\"], function(Plotly) { window.PLOTLYENV=window.PLOTLYENV || {};window.PLOTLYENV.BASE_URL=\"https://plot.ly\";Plotly.newPlot(\"c0f58de7-be70-44d1-818b-3e7dc0e22087\", [{\"x\": [1, 2, 3], \"y\": [3, 1, 6], \"type\": \"scatter\", \"uid\": \"2b92ff62-89c1-11e8-852a-a0999b1548f1\"}], {}, {\"showLink\": true, \"linkText\": \"Export to plot.ly\"})});</script>"
+      ],
+      "text/vnd.plotly.v1+html": [
+       "<div id=\"c0f58de7-be70-44d1-818b-3e7dc0e22087\" style=\"height: 525px; width: 100%;\" class=\"plotly-graph-div\"></div><script type=\"text/javascript\">require([\"plotly\"], function(Plotly) { window.PLOTLYENV=window.PLOTLYENV || {};window.PLOTLYENV.BASE_URL=\"https://plot.ly\";Plotly.newPlot(\"c0f58de7-be70-44d1-818b-3e7dc0e22087\", [{\"x\": [1, 2, 3], \"y\": [3, 1, 6], \"type\": \"scatter\", \"uid\": \"2b92ff62-89c1-11e8-852a-a0999b1548f1\"}], {}, {\"showLink\": true, \"linkText\": \"Export to plot.ly\"})});</script>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "iplot([{\"x\": [1, 2, 3], \"y\": [3, 1, 6]}])\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import plotly.plotly as py\n",
+    "import plotly.graph_objs as go\n",
+    "\n",
+    "import networkx as nx\n",
+    "\n",
+    "G=nx.random_geometric_graph(200,0.125)\n",
+    "pos=nx.get_node_attributes(G,'pos')\n",
+    "\n",
+    "dmin=1\n",
+    "ncenter=0\n",
+    "for n in pos:\n",
+    "    x,y=pos[n]\n",
+    "    d=(x-0.5)**2+(y-0.5)**2\n",
+    "    if d<dmin:\n",
+    "        ncenter=n\n",
+    "        dmin=d\n",
+    "\n",
+    "p=nx.single_source_shortest_path_length(G,ncenter)\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "TypeError",
+     "evalue": "can only concatenate tuple (not \"list\") to tuple",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mTypeError\u001b[0m                                 Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-15-3edad845814a>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[1;32m      9\u001b[0m     \u001b[0mx0\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0my0\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mG\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mnode\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0medge\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;36m0\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;34m'pos'\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     10\u001b[0m     \u001b[0mx1\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0my1\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mG\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mnode\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0medge\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;36m1\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;34m'pos'\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 11\u001b[0;31m     \u001b[0medge_trace\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;34m'x'\u001b[0m\u001b[0;34m]\u001b[0m \u001b[0;34m+=\u001b[0m \u001b[0;34m[\u001b[0m\u001b[0mx0\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mx1\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;32mNone\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     12\u001b[0m     \u001b[0medge_trace\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;34m'y'\u001b[0m\u001b[0;34m]\u001b[0m \u001b[0;34m+=\u001b[0m \u001b[0;34m[\u001b[0m\u001b[0my0\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0my1\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;32mNone\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     13\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;31mTypeError\u001b[0m: can only concatenate tuple (not \"list\") to tuple"
+     ]
+    }
+   ],
+   "source": [
+    "edge_trace = go.Scatter(\n",
+    "    x=[],\n",
+    "    y=[],\n",
+    "    line=dict(width=0.5,color='#888'),\n",
+    "    hoverinfo='none',\n",
+    "    mode='lines')\n",
+    "\n",
+    "for edge in G.edges():\n",
+    "    x0, y0 = G.node[edge[0]]['pos']\n",
+    "    x1, y1 = G.node[edge[1]]['pos']\n",
+    "    edge_trace['x'] += [x0, x1, None]\n",
+    "    edge_trace['y'] += [y0, y1, None]\n",
+    "\n",
+    "node_trace = go.Scatter(\n",
+    "    x=[],\n",
+    "    y=[],\n",
+    "    text=[],\n",
+    "    mode='markers',\n",
+    "    hoverinfo='text',\n",
+    "    marker=dict(\n",
+    "        showscale=True,\n",
+    "        # colorscale options\n",
+    "        # 'Greys' | 'Greens' | 'Bluered' | 'Hot' | 'Picnic' | 'Portland' |\n",
+    "        # Jet' | 'RdBu' | 'Blackbody' | 'Earth' | 'Electric' | 'YIOrRd' | 'YIGnBu'\n",
+    "        colorscale='YIGnBu',\n",
+    "        reversescale=True,\n",
+    "        color=[],\n",
+    "        size=10,\n",
+    "        colorbar=dict(\n",
+    "            thickness=15,\n",
+    "            title='Node Connections',\n",
+    "            xanchor='left',\n",
+    "            titleside='right'\n",
+    "        ),\n",
+    "        line=dict(width=2)))\n",
+    "\n",
+    "for node in G.nodes():\n",
+    "    x, y = G.node[node]['pos']\n",
+    "    node_trace['x'].append(x)\n",
+    "    node_trace['y'].append(y)\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "SyntaxError",
+     "evalue": "invalid character in identifier (<ipython-input-16-4596a876e10a>, line 3)",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;36m  File \u001b[0;32m\"<ipython-input-16-4596a876e10a>\"\u001b[0;36m, line \u001b[0;32m3\u001b[0m\n\u001b[0;31m    type = ‘scattergeo’ ,\u001b[0m\n\u001b[0m                      ^\u001b[0m\n\u001b[0;31mSyntaxError\u001b[0m\u001b[0;31m:\u001b[0m invalid character in identifier\n"
+     ]
+    }
+   ],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "hide_input": false,
+  "kernelspec": {
+   "display_name": "delta",
+   "language": "python",
+   "name": "delta"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.6.4"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}

@@ -22,6 +22,8 @@ Sympyle
    :hidden:
 
    Logistic Regression <tutorials/Logistic-Regression.ipynb>
+   Understanding Automatic Differentiation <tutorials/Understanding-Autodifferentiation.ipynb>
+
 
 .. toctree::
    :maxdepth: 2
