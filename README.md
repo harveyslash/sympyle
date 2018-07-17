@@ -28,4 +28,4 @@ works on arbitrary 'networks'.
 
 ### Examples and tutorials
 
-All tutorials are under docs/source/tutorials and interactible at https://harveyslash.github.io/sympyle/tutorials/
+All tutorials are under docs/source/tutorials and interactible at https://harveyslash.github.io/sympyle/ (under the tutorials section)
