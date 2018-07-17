@@ -19,6 +19,7 @@ Sympyle
 .. toctree::
    :maxdepth: 2
    :caption: Tutorials
+   :hidden:
 
    Logistic Regression <tutorials/Logistic-Regression.ipynb>
 
