@@ -6,8 +6,87 @@
     "collapsed": true
    },
    "source": [
-    "# Understanding Automatic Differentiation"
+    "# Understanding Automatic Differentiation (Incomplete)"
    ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "This tutorial walks through how automatic differentiation works and how sympyle implements it"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Derivatives and why they are useful \n",
+    "\n",
+    "This tutorial assumes that the reader has a basic understanding of derivatives.\n",
+    "If this is not the case, he may refer to the excellent\n",
+    "[The matrix calculus you need for Deep Learning](https://arxiv.org/abs/1802.01528). \n",
+    "\n",
+    "Derivatives describe how much some variable changes when some other variable is changed by a tiny amount. \n",
+    "This is extremely handy, because if we can describe how much some error changes when we change some parameter, we can optimize that parameter to produce a lower error. \n",
+    "\n",
+    "### A simple example \n",
+    "\n",
+    "To drive home the above concept , lets do an example by hand. \n",
+    "\n",
+    "\n",
+    "Lets define our 'error' equation as: \n",
+    "\n",
+    "\n",
+    "\\begin{equation} \n",
+    "error = 2 * x  \n",
+    "\\end{equation}\n",
+    "\n",
+    "where x is a learnable parameter. To begin with , lets give it an initial value of $10$. \n",
+    "\n",
+    "Therefore, \n",
+    "$\\frac{d\\ error}{d x}$ will be $2$, which basically means if $x$ is changed by a infinitesimally small amount (so small that we can consider it almost not changing at all ), $error$ would change by $2$. \n",
+    "\n",
+    "#### Why is this useful  \n",
+    "\n",
+    "If we know how much changing an input to a function changes the value of the function, we can simply change the input such that the value of the function is less ( we want to lower our error ). \n",
+    "\n",
+    "\n",
+    "\n",
+    "#### Chain rule \n",
+    "\n",
+    "Often times our error is not a simple function, but a chain of functions. \n",
+    "For example : \n",
+    "\n",
+    "\\begin{equation}\n",
+    "error = add(10,x)\n",
+    "\\end{equation} \n",
+    "\n",
+    "Where $add$ is simply the + operator. But it helps to explicitly think of it as a function. \n",
+    "\n",
+    "Notice that 10 is a constant here, but $x$ is our input parameter like the previous example.\n",
+    "We now want to try to change $x$ such that $error$ is lower.  \n",
+    "\n",
+    "The chain rule describes how the derivative of a chain of functions may be calculated. \n",
+    "\n",
+    "Its given by :\n",
+    "\n",
+    "\\begin{equation} \n",
+    "\\frac{d\\ error}{d\\ x} = \\frac{d\\ error}{d\\ add} *\\frac{d\\ add}{d\\ x}\n",
+    "\\end{equation} \n",
+    "\n",
+    "Large, modern networks with several million parameters are trained using this system. The expression $\\frac{d\\ error}{d\\ x}$ reads precisely this: \n",
+    "\n",
+    "> How much will $error$ increase if I increase $x$ by a tiny amount\n",
+    "\n",
+    "Since we are interested in decreasing $error$ , we change the value of $x$ in the direction **opposite** to the derivative. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
   },
   {
    "cell_type": "code",
@@ -35,6 +114,44 @@
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
    "version": "3.6.4"
+  },
+  "varInspector": {
+   "cols": {
+    "lenName": 16,
+    "lenType": 16,
+    "lenVar": 40
+   },
+   "kernels_config": {
+    "python": {
+     "delete_cmd_postfix": "",
+     "delete_cmd_prefix": "del ",
+     "library": "var_list.py",
+     "varRefreshCmd": "print(var_dic_list())"
+    },
+    "r": {
+     "delete_cmd_postfix": ") ",
+     "delete_cmd_prefix": "rm(",
+     "library": "var_list.r",
+     "varRefreshCmd": "cat(var_dic_list()) "
+    }
+   },
+   "oldHeight": 122,
+   "position": {
+    "height": "144px",
+    "left": "1070px",
+    "right": "20px",
+    "top": "120px",
+    "width": "350px"
+   },
+   "types_to_exclude": [
+    "module",
+    "function",
+    "builtin_function_or_method",
+    "instance",
+    "_Feature"
+   ],
+   "varInspector_section_display": "block",
+   "window_display": false
   }
  },
  "nbformat": 4,
