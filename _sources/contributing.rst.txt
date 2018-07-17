@@ -36,6 +36,6 @@ Ops should be placed under ``sympyle/Ops/`` folder.
 Adding tutorials/demos
 ######################
 
-Tutorials can be added in the ``/tutorials/``  folder at the root of the
+Tutorials can be added in the ``docs/source/tutorials/``  folder at the root of the
 project.
 
