@@ -355,7 +355,7 @@ div.nboutput div.output_area.stderr {
 <p>aaa</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [10]:
+<span></span>In [1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -371,7 +371,7 @@ div.nboutput div.output_area.stderr {
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>Out[10]:
+<span></span>Out[1]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -379,248 +379,44 @@ div.nboutput div.output_area.stderr {
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [11]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-
-<span></span><span class="n">nr_vertices</span> <span class="o">=</span> <span class="mi">25</span>
-<span class="n">v_label</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="n">nr_vertices</span><span class="p">))</span>
-<span class="n">G</span> <span class="o">=</span> <span class="n">Graph</span><span class="o">.</span><span class="n">Tree</span><span class="p">(</span><span class="n">nr_vertices</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="c1"># 2 stands for children number</span>
-<span class="n">lay</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">layout</span><span class="p">(</span><span class="s1">&#39;rt&#39;</span><span class="p">)</span>
-
-<span class="n">position</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">lay</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nr_vertices</span><span class="p">)}</span>
-<span class="n">Y</span> <span class="o">=</span> <span class="p">[</span><span class="n">lay</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nr_vertices</span><span class="p">)]</span>
-<span class="n">M</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span>
-
-<span class="n">es</span> <span class="o">=</span> <span class="n">EdgeSeq</span><span class="p">(</span><span class="n">G</span><span class="p">)</span> <span class="c1"># sequence of edges</span>
-<span class="n">E</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">tuple</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">es</span><span class="p">]</span> <span class="c1"># list of edges</span>
-
-<span class="n">L</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
-<span class="n">Xn</span> <span class="o">=</span> <span class="p">[</span><span class="n">position</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">L</span><span class="p">)]</span>
-<span class="n">Yn</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">M</span><span class="o">-</span><span class="n">position</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">L</span><span class="p">)]</span>
-<span class="n">Xe</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">Ye</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">E</span><span class="p">:</span>
-    <span class="n">Xe</span><span class="o">+=</span><span class="p">[</span><span class="n">position</span><span class="p">[</span><span class="n">edge</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="mi">0</span><span class="p">],</span><span class="n">position</span><span class="p">[</span><span class="n">edge</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="mi">0</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span>
-    <span class="n">Ye</span><span class="o">+=</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">M</span><span class="o">-</span><span class="n">position</span><span class="p">[</span><span class="n">edge</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="mi">1</span><span class="p">],</span><span class="mi">2</span><span class="o">*</span><span class="n">M</span><span class="o">-</span><span class="n">position</span><span class="p">[</span><span class="n">edge</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="mi">1</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span>
-
-<span class="n">labels</span> <span class="o">=</span> <span class="n">v_label</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [12]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">lines</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">Xe</span><span class="p">,</span>
-                   <span class="n">y</span><span class="o">=</span><span class="n">Ye</span><span class="p">,</span>
-                   <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;lines&#39;</span><span class="p">,</span>
-                   <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;rgb(210,210,210)&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
-                   <span class="n">hoverinfo</span><span class="o">=</span><span class="s1">&#39;none&#39;</span>
-                   <span class="p">)</span>
-<span class="n">dots</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">Xn</span><span class="p">,</span>
-                  <span class="n">y</span><span class="o">=</span><span class="n">Yn</span><span class="p">,</span>
-                  <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;markers&#39;</span><span class="p">,</span>
-                  <span class="n">name</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
-                  <span class="n">marker</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="s1">&#39;dot&#39;</span><span class="p">,</span>
-                                <span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
-                                <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#6175c1&#39;</span><span class="p">,</span>    <span class="c1">#&#39;#DB4551&#39;,</span>
-                                <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;rgb(50,50,50)&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-                                <span class="p">),</span>
-                  <span class="n">text</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span>
-                  <span class="n">hoverinfo</span><span class="o">=</span><span class="s1">&#39;text&#39;</span><span class="p">,</span>
-                  <span class="n">opacity</span><span class="o">=</span><span class="mf">0.8</span>
-                  <span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">ValueError</span>                                Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-12-23c95926ce52&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">     16</span>                   text<span class="ansi-blue-fg">=</span>labels<span class="ansi-blue-fg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">     17</span>                   hoverinfo<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;text&#39;</span><span class="ansi-blue-fg">,</span>
-<span class="ansi-green-fg">---&gt; 18</span><span class="ansi-red-fg">                   </span>opacity<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">0.8</span>
-<span class="ansi-green-intense-fg ansi-bold">     19</span>                   )
-
-<span class="ansi-green-fg">~/.virtualenvs/delta/lib/python3.6/site-packages/plotly/graph_objs/_scatter.py</span> in <span class="ansi-cyan-fg">__init__</span><span class="ansi-blue-fg">(self, arg, cliponaxis, connectgaps, customdata, customdatasrc, dx, dy, error_x, error_y, fill, fillcolor, hoverinfo, hoverinfosrc, hoverlabel, hoveron, hovertext, hovertextsrc, ids, idssrc, legendgroup, line, marker, mode, name, opacity, r, rsrc, selected, selectedpoints, showlegend, stream, t, text, textfont, textposition, textpositionsrc, textsrc, tsrc, uid, unselected, visible, x, x0, xaxis, xcalendar, xsrc, y, y0, yaxis, ycalendar, ysrc, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">   2081</span>         self<span class="ansi-blue-fg">.</span>line <span class="ansi-blue-fg">=</span> line <span class="ansi-green-fg">if</span> line <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">not</span> <span class="ansi-green-fg">None</span> <span class="ansi-green-fg">else</span> v
-<span class="ansi-green-intense-fg ansi-bold">   2082</span>         v <span class="ansi-blue-fg">=</span> arg<span class="ansi-blue-fg">.</span>pop<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;marker&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">-&gt; 2083</span><span class="ansi-red-fg">         </span>self<span class="ansi-blue-fg">.</span>marker <span class="ansi-blue-fg">=</span> marker <span class="ansi-green-fg">if</span> marker <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">not</span> <span class="ansi-green-fg">None</span> <span class="ansi-green-fg">else</span> v
-<span class="ansi-green-intense-fg ansi-bold">   2084</span>         v <span class="ansi-blue-fg">=</span> arg<span class="ansi-blue-fg">.</span>pop<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;mode&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   2085</span>         self<span class="ansi-blue-fg">.</span>mode <span class="ansi-blue-fg">=</span> mode <span class="ansi-green-fg">if</span> mode <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">not</span> <span class="ansi-green-fg">None</span> <span class="ansi-green-fg">else</span> v
-
-<span class="ansi-green-fg">~/.virtualenvs/delta/lib/python3.6/site-packages/plotly/basedatatypes.py</span> in <span class="ansi-cyan-fg">__setattr__</span><span class="ansi-blue-fg">(self, prop, value)</span>
-<span class="ansi-green-intense-fg ansi-bold">   2664</span>                 prop in self._validators):
-<span class="ansi-green-intense-fg ansi-bold">   2665</span>             <span class="ansi-red-fg"># Let known properties and private properties through</span>
-<span class="ansi-green-fg">-&gt; 2666</span><span class="ansi-red-fg">             </span>super<span class="ansi-blue-fg">(</span>BasePlotlyType<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>__setattr__<span class="ansi-blue-fg">(</span>prop<span class="ansi-blue-fg">,</span> value<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   2667</span>         <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">   2668</span>             <span class="ansi-red-fg"># Raise error on unknown public properties</span>
-
-<span class="ansi-green-fg">~/.virtualenvs/delta/lib/python3.6/site-packages/plotly/graph_objs/_scatter.py</span> in <span class="ansi-cyan-fg">marker</span><span class="ansi-blue-fg">(self, val)</span>
-<span class="ansi-green-intense-fg ansi-bold">    801</span>     <span class="ansi-blue-fg">@</span>marker<span class="ansi-blue-fg">.</span>setter
-<span class="ansi-green-intense-fg ansi-bold">    802</span>     <span class="ansi-green-fg">def</span> marker<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> val<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 803</span><span class="ansi-red-fg">         </span>self<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;marker&#39;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> val
-<span class="ansi-green-intense-fg ansi-bold">    804</span>
-<span class="ansi-green-intense-fg ansi-bold">    805</span>     <span class="ansi-red-fg"># mode</span>
-
-<span class="ansi-green-fg">~/.virtualenvs/delta/lib/python3.6/site-packages/plotly/basedatatypes.py</span> in <span class="ansi-cyan-fg">__setitem__</span><span class="ansi-blue-fg">(self, prop, value)</span>
-<span class="ansi-green-intense-fg ansi-bold">   2627</span>             <span class="ansi-red-fg"># ### Handle compound property ###</span>
-<span class="ansi-green-intense-fg ansi-bold">   2628</span>             <span class="ansi-green-fg">if</span> isinstance<span class="ansi-blue-fg">(</span>validator<span class="ansi-blue-fg">,</span> CompoundValidator<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">-&gt; 2629</span><span class="ansi-red-fg">                 </span>self<span class="ansi-blue-fg">.</span>_set_compound_prop<span class="ansi-blue-fg">(</span>prop<span class="ansi-blue-fg">,</span> value<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   2630</span>
-<span class="ansi-green-intense-fg ansi-bold">   2631</span>             <span class="ansi-red-fg"># ### Handle compound array property ###</span>
-
-<span class="ansi-green-fg">~/.virtualenvs/delta/lib/python3.6/site-packages/plotly/basedatatypes.py</span> in <span class="ansi-cyan-fg">_set_compound_prop</span><span class="ansi-blue-fg">(self, prop, val)</span>
-<span class="ansi-green-intense-fg ansi-bold">   2925</span>         validator <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>_validators<span class="ansi-blue-fg">.</span>get<span class="ansi-blue-fg">(</span>prop<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   2926</span>         <span class="ansi-red-fg"># type: BasePlotlyType</span>
-<span class="ansi-green-fg">-&gt; 2927</span><span class="ansi-red-fg">         </span>val <span class="ansi-blue-fg">=</span> validator<span class="ansi-blue-fg">.</span>validate_coerce<span class="ansi-blue-fg">(</span>val<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   2928</span>
-<span class="ansi-green-intense-fg ansi-bold">   2929</span>         <span class="ansi-red-fg"># Save deep copies of current and new states</span>
-
-<span class="ansi-green-fg">~/.virtualenvs/delta/lib/python3.6/site-packages/_plotly_utils/basevalidators.py</span> in <span class="ansi-cyan-fg">validate_coerce</span><span class="ansi-blue-fg">(self, v)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1783</span>
-<span class="ansi-green-intense-fg ansi-bold">   1784</span>         <span class="ansi-green-fg">elif</span> isinstance<span class="ansi-blue-fg">(</span>v<span class="ansi-blue-fg">,</span> dict<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">-&gt; 1785</span><span class="ansi-red-fg">             </span>v <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>data_class<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">**</span>v<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1786</span>
-<span class="ansi-green-intense-fg ansi-bold">   1787</span>         <span class="ansi-green-fg">elif</span> isinstance<span class="ansi-blue-fg">(</span>v<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>data_class<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">~/.virtualenvs/delta/lib/python3.6/site-packages/plotly/graph_objs/scatter/_marker.py</span> in <span class="ansi-cyan-fg">__init__</span><span class="ansi-blue-fg">(self, arg, autocolorscale, cauto, cmax, cmin, color, colorbar, colorscale, colorsrc, gradient, line, maxdisplayed, opacity, opacitysrc, reversescale, showscale, size, sizemin, sizemode, sizeref, sizesrc, symbol, symbolsrc, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1237</span>         self<span class="ansi-blue-fg">.</span>sizesrc <span class="ansi-blue-fg">=</span> sizesrc <span class="ansi-green-fg">if</span> sizesrc <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">not</span> <span class="ansi-green-fg">None</span> <span class="ansi-green-fg">else</span> v
-<span class="ansi-green-intense-fg ansi-bold">   1238</span>         v <span class="ansi-blue-fg">=</span> arg<span class="ansi-blue-fg">.</span>pop<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;symbol&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">-&gt; 1239</span><span class="ansi-red-fg">         </span>self<span class="ansi-blue-fg">.</span>symbol <span class="ansi-blue-fg">=</span> symbol <span class="ansi-green-fg">if</span> symbol <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">not</span> <span class="ansi-green-fg">None</span> <span class="ansi-green-fg">else</span> v
-<span class="ansi-green-intense-fg ansi-bold">   1240</span>         v <span class="ansi-blue-fg">=</span> arg<span class="ansi-blue-fg">.</span>pop<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;symbolsrc&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1241</span>         self<span class="ansi-blue-fg">.</span>symbolsrc <span class="ansi-blue-fg">=</span> symbolsrc <span class="ansi-green-fg">if</span> symbolsrc <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">not</span> <span class="ansi-green-fg">None</span> <span class="ansi-green-fg">else</span> v
-
-<span class="ansi-green-fg">~/.virtualenvs/delta/lib/python3.6/site-packages/plotly/basedatatypes.py</span> in <span class="ansi-cyan-fg">__setattr__</span><span class="ansi-blue-fg">(self, prop, value)</span>
-<span class="ansi-green-intense-fg ansi-bold">   2664</span>                 prop in self._validators):
-<span class="ansi-green-intense-fg ansi-bold">   2665</span>             <span class="ansi-red-fg"># Let known properties and private properties through</span>
-<span class="ansi-green-fg">-&gt; 2666</span><span class="ansi-red-fg">             </span>super<span class="ansi-blue-fg">(</span>BasePlotlyType<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>__setattr__<span class="ansi-blue-fg">(</span>prop<span class="ansi-blue-fg">,</span> value<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   2667</span>         <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">   2668</span>             <span class="ansi-red-fg"># Raise error on unknown public properties</span>
-
-<span class="ansi-green-fg">~/.virtualenvs/delta/lib/python3.6/site-packages/plotly/graph_objs/scatter/_marker.py</span> in <span class="ansi-cyan-fg">symbol</span><span class="ansi-blue-fg">(self, val)</span>
-<span class="ansi-green-intense-fg ansi-bold">    872</span>     <span class="ansi-blue-fg">@</span>symbol<span class="ansi-blue-fg">.</span>setter
-<span class="ansi-green-intense-fg ansi-bold">    873</span>     <span class="ansi-green-fg">def</span> symbol<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> val<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 874</span><span class="ansi-red-fg">         </span>self<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;symbol&#39;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> val
-<span class="ansi-green-intense-fg ansi-bold">    875</span>
-<span class="ansi-green-intense-fg ansi-bold">    876</span>     <span class="ansi-red-fg"># symbolsrc</span>
-
-<span class="ansi-green-fg">~/.virtualenvs/delta/lib/python3.6/site-packages/plotly/basedatatypes.py</span> in <span class="ansi-cyan-fg">__setitem__</span><span class="ansi-blue-fg">(self, prop, value)</span>
-<span class="ansi-green-intense-fg ansi-bold">   2636</span>             <span class="ansi-red-fg"># ### Handle simple property ###</span>
-<span class="ansi-green-intense-fg ansi-bold">   2637</span>             <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">-&gt; 2638</span><span class="ansi-red-fg">                 </span>self<span class="ansi-blue-fg">.</span>_set_prop<span class="ansi-blue-fg">(</span>prop<span class="ansi-blue-fg">,</span> value<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   2639</span>
-<span class="ansi-green-intense-fg ansi-bold">   2640</span>         <span class="ansi-red-fg"># Handle non-scalar case</span>
-
-<span class="ansi-green-fg">~/.virtualenvs/delta/lib/python3.6/site-packages/plotly/basedatatypes.py</span> in <span class="ansi-cyan-fg">_set_prop</span><span class="ansi-blue-fg">(self, prop, val)</span>
-<span class="ansi-green-intense-fg ansi-bold">   2866</span>         <span class="ansi-red-fg"># ------------</span>
-<span class="ansi-green-intense-fg ansi-bold">   2867</span>         validator <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>_validators<span class="ansi-blue-fg">.</span>get<span class="ansi-blue-fg">(</span>prop<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">-&gt; 2868</span><span class="ansi-red-fg">         </span>val <span class="ansi-blue-fg">=</span> validator<span class="ansi-blue-fg">.</span>validate_coerce<span class="ansi-blue-fg">(</span>val<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   2869</span>
-<span class="ansi-green-intense-fg ansi-bold">   2870</span>         <span class="ansi-red-fg"># val is None</span>
-
-<span class="ansi-green-fg">~/.virtualenvs/delta/lib/python3.6/site-packages/_plotly_utils/basevalidators.py</span> in <span class="ansi-cyan-fg">validate_coerce</span><span class="ansi-blue-fg">(self, v)</span>
-<span class="ansi-green-intense-fg ansi-bold">    486</span>             v <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>perform_replacemenet<span class="ansi-blue-fg">(</span>v<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    487</span>             <span class="ansi-green-fg">if</span> <span class="ansi-green-fg">not</span> self<span class="ansi-blue-fg">.</span>in_values<span class="ansi-blue-fg">(</span>v<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 488</span><span class="ansi-red-fg">                 </span>self<span class="ansi-blue-fg">.</span>raise_invalid_val<span class="ansi-blue-fg">(</span>v<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    489</span>         <span class="ansi-green-fg">return</span> v
-<span class="ansi-green-intense-fg ansi-bold">    490</span>
-
-<span class="ansi-green-fg">~/.virtualenvs/delta/lib/python3.6/site-packages/_plotly_utils/basevalidators.py</span> in <span class="ansi-cyan-fg">raise_invalid_val</span><span class="ansi-blue-fg">(self, v)</span>
-<span class="ansi-green-intense-fg ansi-bold">    214</span>             typ<span class="ansi-blue-fg">=</span>type_str<span class="ansi-blue-fg">(</span>v<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">    215</span>             v<span class="ansi-blue-fg">=</span>repr<span class="ansi-blue-fg">(</span>v<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span>
-<span class="ansi-green-fg">--&gt; 216</span><span class="ansi-red-fg">             valid_clr_desc=self.description()))
-</span><span class="ansi-green-intense-fg ansi-bold">    217</span>
-<span class="ansi-green-intense-fg ansi-bold">    218</span>     <span class="ansi-green-fg">def</span> raise_invalid_elements<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> invalid_els<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-red-fg">ValueError</span>:
-    Invalid value of type &#39;builtins.str&#39; received for the &#39;symbol&#39; property of scatter.marker
-        Received value: &#39;dot&#39;
-
-    The &#39;symbol&#39; property is an enumeration that may be specified as:
-      - One of the following enumeration values:
-            [0, &#39;circle&#39;, 100, &#39;circle-open&#39;, 200, &#39;circle-dot&#39;, 300,
-            &#39;circle-open-dot&#39;, 1, &#39;square&#39;, 101, &#39;square-open&#39;, 201,
-            &#39;square-dot&#39;, 301, &#39;square-open-dot&#39;, 2, &#39;diamond&#39;, 102,
-            &#39;diamond-open&#39;, 202, &#39;diamond-dot&#39;, 302,
-            &#39;diamond-open-dot&#39;, 3, &#39;cross&#39;, 103, &#39;cross-open&#39;, 203,
-            &#39;cross-dot&#39;, 303, &#39;cross-open-dot&#39;, 4, &#39;x&#39;, 104, &#39;x-open&#39;,
-            204, &#39;x-dot&#39;, 304, &#39;x-open-dot&#39;, 5, &#39;triangle-up&#39;, 105,
-            &#39;triangle-up-open&#39;, 205, &#39;triangle-up-dot&#39;, 305,
-            &#39;triangle-up-open-dot&#39;, 6, &#39;triangle-down&#39;, 106,
-            &#39;triangle-down-open&#39;, 206, &#39;triangle-down-dot&#39;, 306,
-            &#39;triangle-down-open-dot&#39;, 7, &#39;triangle-left&#39;, 107,
-            &#39;triangle-left-open&#39;, 207, &#39;triangle-left-dot&#39;, 307,
-            &#39;triangle-left-open-dot&#39;, 8, &#39;triangle-right&#39;, 108,
-            &#39;triangle-right-open&#39;, 208, &#39;triangle-right-dot&#39;, 308,
-            &#39;triangle-right-open-dot&#39;, 9, &#39;triangle-ne&#39;, 109,
-            &#39;triangle-ne-open&#39;, 209, &#39;triangle-ne-dot&#39;, 309,
-            &#39;triangle-ne-open-dot&#39;, 10, &#39;triangle-se&#39;, 110,
-            &#39;triangle-se-open&#39;, 210, &#39;triangle-se-dot&#39;, 310,
-            &#39;triangle-se-open-dot&#39;, 11, &#39;triangle-sw&#39;, 111,
-            &#39;triangle-sw-open&#39;, 211, &#39;triangle-sw-dot&#39;, 311,
-            &#39;triangle-sw-open-dot&#39;, 12, &#39;triangle-nw&#39;, 112,
-            &#39;triangle-nw-open&#39;, 212, &#39;triangle-nw-dot&#39;, 312,
-            &#39;triangle-nw-open-dot&#39;, 13, &#39;pentagon&#39;, 113,
-            &#39;pentagon-open&#39;, 213, &#39;pentagon-dot&#39;, 313,
-            &#39;pentagon-open-dot&#39;, 14, &#39;hexagon&#39;, 114, &#39;hexagon-open&#39;,
-            214, &#39;hexagon-dot&#39;, 314, &#39;hexagon-open-dot&#39;, 15,
-            &#39;hexagon2&#39;, 115, &#39;hexagon2-open&#39;, 215, &#39;hexagon2-dot&#39;,
-            315, &#39;hexagon2-open-dot&#39;, 16, &#39;octagon&#39;, 116,
-            &#39;octagon-open&#39;, 216, &#39;octagon-dot&#39;, 316,
-            &#39;octagon-open-dot&#39;, 17, &#39;star&#39;, 117, &#39;star-open&#39;, 217,
-            &#39;star-dot&#39;, 317, &#39;star-open-dot&#39;, 18, &#39;hexagram&#39;, 118,
-            &#39;hexagram-open&#39;, 218, &#39;hexagram-dot&#39;, 318,
-            &#39;hexagram-open-dot&#39;, 19, &#39;star-triangle-up&#39;, 119,
-            &#39;star-triangle-up-open&#39;, 219, &#39;star-triangle-up-dot&#39;, 319,
-            &#39;star-triangle-up-open-dot&#39;, 20, &#39;star-triangle-down&#39;,
-            120, &#39;star-triangle-down-open&#39;, 220,
-            &#39;star-triangle-down-dot&#39;, 320,
-            &#39;star-triangle-down-open-dot&#39;, 21, &#39;star-square&#39;, 121,
-            &#39;star-square-open&#39;, 221, &#39;star-square-dot&#39;, 321,
-            &#39;star-square-open-dot&#39;, 22, &#39;star-diamond&#39;, 122,
-            &#39;star-diamond-open&#39;, 222, &#39;star-diamond-dot&#39;, 322,
-            &#39;star-diamond-open-dot&#39;, 23, &#39;diamond-tall&#39;, 123,
-            &#39;diamond-tall-open&#39;, 223, &#39;diamond-tall-dot&#39;, 323,
-            &#39;diamond-tall-open-dot&#39;, 24, &#39;diamond-wide&#39;, 124,
-            &#39;diamond-wide-open&#39;, 224, &#39;diamond-wide-dot&#39;, 324,
-            &#39;diamond-wide-open-dot&#39;, 25, &#39;hourglass&#39;, 125,
-            &#39;hourglass-open&#39;, 26, &#39;bowtie&#39;, 126, &#39;bowtie-open&#39;, 27,
-            &#39;circle-cross&#39;, 127, &#39;circle-cross-open&#39;, 28, &#39;circle-x&#39;,
-            128, &#39;circle-x-open&#39;, 29, &#39;square-cross&#39;, 129,
-            &#39;square-cross-open&#39;, 30, &#39;square-x&#39;, 130, &#39;square-x-open&#39;,
-            31, &#39;diamond-cross&#39;, 131, &#39;diamond-cross-open&#39;, 32,
-            &#39;diamond-x&#39;, 132, &#39;diamond-x-open&#39;, 33, &#39;cross-thin&#39;, 133,
-            &#39;cross-thin-open&#39;, 34, &#39;x-thin&#39;, 134, &#39;x-thin-open&#39;, 35,
-            &#39;asterisk&#39;, 135, &#39;asterisk-open&#39;, 36, &#39;hash&#39;, 136,
-            &#39;hash-open&#39;, 236, &#39;hash-dot&#39;, 336, &#39;hash-open-dot&#39;, 37,
-            &#39;y-up&#39;, 137, &#39;y-up-open&#39;, 38, &#39;y-down&#39;, 138,
-            &#39;y-down-open&#39;, 39, &#39;y-left&#39;, 139, &#39;y-left-open&#39;, 40,
-            &#39;y-right&#39;, 140, &#39;y-right-open&#39;, 41, &#39;line-ew&#39;, 141,
-            &#39;line-ew-open&#39;, 42, &#39;line-ns&#39;, 142, &#39;line-ns-open&#39;, 43,
-            &#39;line-ne&#39;, 143, &#39;line-ne-open&#39;, 44, &#39;line-nw&#39;, 144,
-            &#39;line-nw-open&#39;]
-      - A tuple, list, or one-dimensional numpy array of the above
-</pre></div></div>
-</div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">iplot</span><span class="p">([{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">]}])</span>
-
+<span></span><span class="n">g</span> <span class="o">=</span> <span class="n">Graph</span><span class="p">()</span>
+<span class="n">g</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[2]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;igraph.Graph at 0x110fbb408&gt;
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">g</span><span class="o">.</span><span class="n">add_vertices</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -628,110 +424,97 @@ div.nboutput div.output_area.stderr {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<div id="c0f58de7-be70-44d1-818b-3e7dc0e22087" style="height: 525px; width: 100%;" class="plotly-graph-div"></div><script type="text/javascript">require(["plotly"], function(Plotly) { window.PLOTLYENV=window.PLOTLYENV || {};window.PLOTLYENV.BASE_URL="https://plot.ly";Plotly.newPlot("c0f58de7-be70-44d1-818b-3e7dc0e22087", [{"x": [1, 2, 3], "y": [3, 1, 6], "type": "scatter", "uid": "2b92ff62-89c1-11e8-852a-a0999b1548f1"}], {}, {"showLink": true, "linkText": "Export to plot.ly"})});</script></div>
+<div class="highlight"><pre>
+IGRAPH U--- 3 0 --
+</pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [14]:
+<span></span>In [5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">plotly.plotly</span> <span class="k">as</span> <span class="nn">py</span>
-<span class="kn">import</span> <span class="nn">plotly.graph_objs</span> <span class="k">as</span> <span class="nn">go</span>
-
-<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
-
-<span class="n">G</span><span class="o">=</span><span class="n">nx</span><span class="o">.</span><span class="n">random_geometric_graph</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span><span class="mf">0.125</span><span class="p">)</span>
-<span class="n">pos</span><span class="o">=</span><span class="n">nx</span><span class="o">.</span><span class="n">get_node_attributes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span><span class="s1">&#39;pos&#39;</span><span class="p">)</span>
-
-<span class="n">dmin</span><span class="o">=</span><span class="mi">1</span>
-<span class="n">ncenter</span><span class="o">=</span><span class="mi">0</span>
-<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">pos</span><span class="p">:</span>
-    <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="n">pos</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
-    <span class="n">d</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
-    <span class="k">if</span> <span class="n">d</span><span class="o">&lt;</span><span class="n">dmin</span><span class="p">:</span>
-        <span class="n">ncenter</span><span class="o">=</span><span class="n">n</span>
-        <span class="n">dmin</span><span class="o">=</span><span class="n">d</span>
-
-<span class="n">p</span><span class="o">=</span><span class="n">nx</span><span class="o">.</span><span class="n">single_source_shortest_path_length</span><span class="p">(</span><span class="n">G</span><span class="p">,</span><span class="n">ncenter</span><span class="p">)</span>
-
+<span></span><span class="n">g</span><span class="o">.</span><span class="n">add_edges</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">layout</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">layout</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;kk&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [15]:
+<span></span>In [9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">edge_trace</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span>
-    <span class="n">x</span><span class="o">=</span><span class="p">[],</span>
-    <span class="n">y</span><span class="o">=</span><span class="p">[],</span>
-    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;#888&#39;</span><span class="p">),</span>
-    <span class="n">hoverinfo</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
-    <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;lines&#39;</span><span class="p">)</span>
-
-<span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">():</span>
-    <span class="n">x0</span><span class="p">,</span> <span class="n">y0</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">node</span><span class="p">[</span><span class="n">edge</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s1">&#39;pos&#39;</span><span class="p">]</span>
-    <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">node</span><span class="p">[</span><span class="n">edge</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="s1">&#39;pos&#39;</span><span class="p">]</span>
-    <span class="n">edge_trace</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="p">[</span><span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
-    <span class="n">edge_trace</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="p">[</span><span class="n">y0</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
-
-<span class="n">node_trace</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span>
-    <span class="n">x</span><span class="o">=</span><span class="p">[],</span>
-    <span class="n">y</span><span class="o">=</span><span class="p">[],</span>
-    <span class="n">text</span><span class="o">=</span><span class="p">[],</span>
-    <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;markers&#39;</span><span class="p">,</span>
-    <span class="n">hoverinfo</span><span class="o">=</span><span class="s1">&#39;text&#39;</span><span class="p">,</span>
-    <span class="n">marker</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
-        <span class="n">showscale</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="c1"># colorscale options</span>
-        <span class="c1"># &#39;Greys&#39; | &#39;Greens&#39; | &#39;Bluered&#39; | &#39;Hot&#39; | &#39;Picnic&#39; | &#39;Portland&#39; |</span>
-        <span class="c1"># Jet&#39; | &#39;RdBu&#39; | &#39;Blackbody&#39; | &#39;Earth&#39; | &#39;Electric&#39; | &#39;YIOrRd&#39; | &#39;YIGnBu&#39;</span>
-        <span class="n">colorscale</span><span class="o">=</span><span class="s1">&#39;YIGnBu&#39;</span><span class="p">,</span>
-        <span class="n">reversescale</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">color</span><span class="o">=</span><span class="p">[],</span>
-        <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-        <span class="n">colorbar</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
-            <span class="n">thickness</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
-            <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Node Connections&#39;</span><span class="p">,</span>
-            <span class="n">xanchor</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span>
-            <span class="n">titleside</span><span class="o">=</span><span class="s1">&#39;right&#39;</span>
-        <span class="p">),</span>
-        <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">)))</span>
-
-<span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">():</span>
-    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">node</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="s1">&#39;pos&#39;</span><span class="p">]</span>
-    <span class="n">node_trace</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-    <span class="n">node_trace</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-
+<span></span><span class="n">plot</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">layout</span> <span class="o">=</span> <span class="n">layout</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
+<div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 <span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-15-3edad845814a&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">      9</span>     x0<span class="ansi-blue-fg">,</span> y0 <span class="ansi-blue-fg">=</span> G<span class="ansi-blue-fg">.</span>node<span class="ansi-blue-fg">[</span>edge<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;pos&#39;</span><span class="ansi-blue-fg">]</span>
-<span class="ansi-green-intense-fg ansi-bold">     10</span>     x1<span class="ansi-blue-fg">,</span> y1 <span class="ansi-blue-fg">=</span> G<span class="ansi-blue-fg">.</span>node<span class="ansi-blue-fg">[</span>edge<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;pos&#39;</span><span class="ansi-blue-fg">]</span>
-<span class="ansi-green-fg">---&gt; 11</span><span class="ansi-red-fg">     </span>edge_trace<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;x&#39;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">+=</span> <span class="ansi-blue-fg">[</span>x0<span class="ansi-blue-fg">,</span> x1<span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">]</span>
-<span class="ansi-green-intense-fg ansi-bold">     12</span>     edge_trace<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;y&#39;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">+=</span> <span class="ansi-blue-fg">[</span>y0<span class="ansi-blue-fg">,</span> y1<span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">]</span>
-<span class="ansi-green-intense-fg ansi-bold">     13</span>
+<span class="ansi-red-fg">AttributeError</span>                            Traceback (most recent call last)
+<span class="ansi-green-fg">~/.virtualenvs/delta/lib/python3.6/site-packages/IPython/core/formatters.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-fg">(self, obj)</span>
+<span class="ansi-green-intense-fg ansi-bold">    343</span>             method <span class="ansi-blue-fg">=</span> get_real_method<span class="ansi-blue-fg">(</span>obj<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>print_method<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    344</span>             <span class="ansi-green-fg">if</span> method <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">not</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 345</span><span class="ansi-red-fg">                 </span><span class="ansi-green-fg">return</span> method<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    346</span>             <span class="ansi-green-fg">return</span> <span class="ansi-green-fg">None</span>
+<span class="ansi-green-intense-fg ansi-bold">    347</span>         <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
 
-<span class="ansi-red-fg">TypeError</span>: can only concatenate tuple (not &#34;list&#34;) to tuple
+<span class="ansi-green-fg">~/.virtualenvs/delta/lib/python3.6/site-packages/igraph/drawing/__init__.py</span> in <span class="ansi-cyan-fg">_repr_svg_</span><span class="ansi-blue-fg">(self)</span>
+<span class="ansi-green-intense-fg ansi-bold">    352</span>         surface<span class="ansi-blue-fg">.</span>finish<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    353</span>         <span class="ansi-red-fg"># Return the raw SVG representation</span>
+<span class="ansi-green-fg">--&gt; 354</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> io<span class="ansi-blue-fg">.</span>getvalue<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>encode<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;utf-8&#34;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    355</span>
+<span class="ansi-green-intense-fg ansi-bold">    356</span>     <span class="ansi-blue-fg">@</span>property
+
+<span class="ansi-red-fg">AttributeError</span>: &#39;bytes&#39; object has no attribute &#39;encode&#39;
 </pre></div></div>
 </div>
-<div class="nbinput docutils container">
+<div class="nboutput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [16]:
+<span></span>Out[9]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;igraph.drawing.Plot at 0x1136c6240&gt;
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
+<span></span><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">g</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">karate_club_graph</span><span class="p">()</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">));</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -739,13 +522,226 @@ div.nboutput div.output_area.stderr {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<div class="highlight"><pre>
-<span class="ansi-cyan-fg">  File </span><span class="ansi-green-fg">&#34;&lt;ipython-input-16-4596a876e10a&gt;&#34;</span><span class="ansi-cyan-fg">, line </span><span class="ansi-green-fg">3</span>
-<span class="ansi-red-fg">    type = ‘scattergeo’ ,</span>
-                      ^
-<span class="ansi-red-fg">SyntaxError</span><span class="ansi-red-fg">:</span> invalid character in identifier
+<img alt="../_images/tutorials_Untitled_9_0.png" src="../_images/tutorials_Untitled_9_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">nodes</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="s1">&#39;club&#39;</span><span class="p">:</span> <span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;club&#39;</span><span class="p">]}</span>
+         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">nodes</span><span class="p">()]</span>
+<span class="n">links</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;source&#39;</span><span class="p">:</span> <span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;target&#39;</span><span class="p">:</span> <span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">]}</span>
+         <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">edges</span><span class="p">()]</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;graph.json&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">({</span><span class="s1">&#39;nodes&#39;</span><span class="p">:</span> <span class="n">nodes</span><span class="p">,</span> <span class="s1">&#39;links&#39;</span><span class="p">:</span> <span class="n">links</span><span class="p">},</span>
+              <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">%%</span><span class="k">html</span>
+&lt;div id=&quot;d3-example&quot;&gt;&lt;/div&gt;
+&lt;style&gt;
+.node {stroke: #fff; stroke-width: 1.5px;}
+.link {stroke: #999; stroke-opacity: .6;}
+&lt;/style&gt;
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div id="d3-example"></div>
+<style>
+.node {stroke: #fff; stroke-width: 1.5px;}
+.link {stroke: #999; stroke-opacity: .6;}
+</style></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [14]:
+</pre></div>
+</div>
+<div class="input_area highlight-javascript notranslate"><div class="highlight"><pre>
+<span></span><span class="o">%%</span><span class="nx">javascript</span>
+<span class="c1">// We load the d3.js library from the Web.</span>
+<span class="nx">require</span><span class="p">.</span><span class="nx">config</span><span class="p">({</span><span class="nx">paths</span><span class="o">:</span>
+    <span class="p">{</span><span class="nx">d3</span><span class="o">:</span> <span class="s2">&quot;http://d3js.org/d3.v3.min&quot;</span><span class="p">}});</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;d3&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">d3</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// The code in this block is executed when the</span>
+  <span class="c1">// d3.js library has been loaded.</span>
 
-</pre></div></div>
+  <span class="c1">// First, we specify the size of the canvas</span>
+  <span class="c1">// containing the visualization (size of the</span>
+  <span class="c1">// &lt;div&gt; element).</span>
+  <span class="kd">var</span> <span class="nx">width</span> <span class="o">=</span> <span class="mi">300</span><span class="p">,</span> <span class="nx">height</span> <span class="o">=</span> <span class="mi">300</span><span class="p">;</span>
+
+  <span class="c1">// We create a color scale.</span>
+  <span class="kd">var</span> <span class="nx">color</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">scale</span><span class="p">.</span><span class="nx">category10</span><span class="p">();</span>
+
+  <span class="c1">// We create a force-directed dynamic graph layout.</span>
+  <span class="kd">var</span> <span class="nx">force</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">layout</span><span class="p">.</span><span class="nx">force</span><span class="p">()</span>
+    <span class="p">.</span><span class="nx">charge</span><span class="p">(</span><span class="o">-</span><span class="mi">120</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">linkDistance</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">size</span><span class="p">([</span><span class="nx">width</span><span class="p">,</span> <span class="nx">height</span><span class="p">]);</span>
+
+  <span class="c1">// In the &lt;div&gt; element, we create a &lt;svg&gt; graphic</span>
+  <span class="c1">// that will contain our interactive visualization.</span>
+  <span class="kd">var</span> <span class="nx">svg</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s2">&quot;#d3-example&quot;</span><span class="p">).</span><span class="nx">select</span><span class="p">(</span><span class="s2">&quot;svg&quot;</span><span class="p">)</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">svg</span><span class="p">.</span><span class="nx">empty</span><span class="p">())</span> <span class="p">{</span>
+    <span class="nx">svg</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s2">&quot;#d3-example&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="s2">&quot;svg&quot;</span><span class="p">)</span>
+          <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;width&quot;</span><span class="p">,</span> <span class="nx">width</span><span class="p">)</span>
+          <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="nx">height</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="c1">// We load the JSON file.</span>
+  <span class="nx">d3</span><span class="p">.</span><span class="nx">json</span><span class="p">(</span><span class="s2">&quot;graph.json&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">graph</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// In this block, the file has been loaded</span>
+    <span class="c1">// and the &#39;graph&#39; object contains our graph.</span>
+
+    <span class="c1">// We load the nodes and links in the</span>
+    <span class="c1">// force-directed graph.</span>
+    <span class="nx">force</span><span class="p">.</span><span class="nx">nodes</span><span class="p">(</span><span class="nx">graph</span><span class="p">.</span><span class="nx">nodes</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">links</span><span class="p">(</span><span class="nx">graph</span><span class="p">.</span><span class="nx">links</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">start</span><span class="p">();</span>
+
+    <span class="c1">// We create a &lt;line&gt; SVG element for each link</span>
+    <span class="c1">// in the graph.</span>
+    <span class="kd">var</span> <span class="nx">link</span> <span class="o">=</span> <span class="nx">svg</span><span class="p">.</span><span class="nx">selectAll</span><span class="p">(</span><span class="s2">&quot;.link&quot;</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="nx">graph</span><span class="p">.</span><span class="nx">links</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">enter</span><span class="p">().</span><span class="nx">append</span><span class="p">(</span><span class="s2">&quot;line&quot;</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">,</span> <span class="s2">&quot;link&quot;</span><span class="p">);</span>
+
+    <span class="c1">// We create a &lt;circle&gt; SVG element for each node</span>
+    <span class="c1">// in the graph, and we specify a few attributes.</span>
+    <span class="kd">var</span> <span class="nx">node</span> <span class="o">=</span> <span class="nx">svg</span><span class="p">.</span><span class="nx">selectAll</span><span class="p">(</span><span class="s2">&quot;.node&quot;</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="nx">graph</span><span class="p">.</span><span class="nx">nodes</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">enter</span><span class="p">().</span><span class="nx">append</span><span class="p">(</span><span class="s2">&quot;circle&quot;</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">,</span> <span class="s2">&quot;node&quot;</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1">// radius</span>
+      <span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&quot;fill&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span>
+         <span class="c1">// The node color depends on the club.</span>
+         <span class="k">return</span> <span class="nx">color</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">club</span><span class="p">);</span>
+      <span class="p">})</span>
+      <span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">force</span><span class="p">.</span><span class="nx">drag</span><span class="p">);</span>
+
+    <span class="c1">// The name of each node is the node number.</span>
+    <span class="nx">node</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span> <span class="p">});</span>
+
+    <span class="c1">// We bind the positions of the SVG elements</span>
+    <span class="c1">// to the positions of the dynamic force-directed</span>
+    <span class="c1">// graph, at each time step.</span>
+    <span class="nx">force</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;tick&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">link</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;x1&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span><span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">source</span><span class="p">.</span><span class="nx">x</span><span class="p">})</span>
+          <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;y1&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span><span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">source</span><span class="p">.</span><span class="nx">y</span><span class="p">})</span>
+          <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;x2&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span><span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">x</span><span class="p">})</span>
+          <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;y2&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span><span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">y</span><span class="p">});</span>
+
+      <span class="nx">node</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;cx&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span><span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">x</span><span class="p">})</span>
+          <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;cy&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span><span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">y</span><span class="p">});</span>
+    <span class="p">});</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div></div>
+<script type="text/javascript">
+var element = document.currentScript.previousSibling.previousSibling;
+// We load the d3.js library from the Web.
+require.config({paths:
+    {d3: "http://d3js.org/d3.v3.min"}});
+require(["d3"], function(d3) {
+  // The code in this block is executed when the
+  // d3.js library has been loaded.
+
+  // First, we specify the size of the canvas
+  // containing the visualization (size of the
+  // <div> element).
+  var width = 300, height = 300;
+
+  // We create a color scale.
+  var color = d3.scale.category10();
+
+  // We create a force-directed dynamic graph layout.
+  var force = d3.layout.force()
+    .charge(-120)
+    .linkDistance(30)
+    .size([width, height]);
+
+  // In the <div> element, we create a <svg> graphic
+  // that will contain our interactive visualization.
+  var svg = d3.select("#d3-example").select("svg")
+  if (svg.empty()) {
+    svg = d3.select("#d3-example").append("svg")
+          .attr("width", width)
+          .attr("height", height);
+  }
+
+  // We load the JSON file.
+  d3.json("graph.json", function(error, graph) {
+    // In this block, the file has been loaded
+    // and the 'graph' object contains our graph.
+
+    // We load the nodes and links in the
+    // force-directed graph.
+    force.nodes(graph.nodes)
+      .links(graph.links)
+      .start();
+
+    // We create a <line> SVG element for each link
+    // in the graph.
+    var link = svg.selectAll(".link")
+      .data(graph.links)
+      .enter().append("line")
+      .attr("class", "link");
+
+    // We create a <circle> SVG element for each node
+    // in the graph, and we specify a few attributes.
+    var node = svg.selectAll(".node")
+      .data(graph.nodes)
+      .enter().append("circle")
+      .attr("class", "node")
+      .attr("r", 5)  // radius
+      .style("fill", function(d) {
+         // The node color depends on the club.
+         return color(d.club);
+      })
+      .call(force.drag);
+
+    // The name of each node is the node number.
+    node.append("title")
+        .text(function(d) { return d.name; });
+
+    // We bind the positions of the SVG elements
+    // to the positions of the dynamic force-directed
+    // graph, at each time step.
+    force.on("tick", function() {
+      link.attr("x1", function(d){return d.source.x})
+          .attr("y1", function(d){return d.source.y})
+          .attr("x2", function(d){return d.target.x})
+          .attr("y2", function(d){return d.target.y});
+
+      node.attr("cx", function(d){return d.x})
+          .attr("cy", function(d){return d.y});
+    });
+  });
+});
+</script></div>
 </div>
 </div>
 
